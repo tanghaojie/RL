@@ -56,7 +56,6 @@ namespace RLCore.Web.Startup
             {
                 app.UseExceptionHandler("/Error");
             }
-
             CorsConfigurer.Use(app);
             MvcConfigurer.Use(app);
             SwagConfigurer.Use(app);
