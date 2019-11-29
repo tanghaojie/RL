@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RLCore.Authorization
+namespace RLCore.Users
 {
     public enum UserGender
     {

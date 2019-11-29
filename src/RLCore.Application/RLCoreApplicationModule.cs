@@ -5,13 +5,15 @@ using Abp.Reflection.Extensions;
 namespace RLCore
 {
     [DependsOn(
-        typeof(RLCoreCoreModule), 
+        typeof(RLCoreCoreModule),
         typeof(AbpAutoMapperModule))]
     public class RLCoreApplicationModule : AbpModule
     {
         public override void Initialize()
         {
-            IocManager.RegisterAssemblyByConvention(typeof(RLCoreApplicationModule).GetAssembly());
+            var thisAssembly = typeof(RLCoreApplicationModule).GetAssembly();
+            IocManager.RegisterAssemblyByConvention(thisAssembly);
+            Configuration.Modules.AbpAutoMapper().Configurators.Add(cfg => cfg.AddMaps(thisAssembly));
         }
     }
 }

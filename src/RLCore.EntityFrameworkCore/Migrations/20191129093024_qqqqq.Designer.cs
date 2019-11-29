@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -10,9 +11,10 @@ using RLCore.EntityFrameworkCore;
 namespace RLCore.Migrations
 {
     [DbContext(typeof(RLCoreDbContext))]
-    partial class RLCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191129093024_qqqqq")]
+    partial class qqqqq
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,46 +121,6 @@ namespace RLCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Channels");
-                });
-
-            modelBuilder.Entity("RLCore.RL.Manager", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AdRank");
-
-                    b.Property<string>("Belongtobasin");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("County");
-
-                    b.Property<string>("Department");
-
-                    b.Property<string>("Explain");
-
-                    b.Property<int?>("HasNorvBool");
-
-                    b.Property<string>("Manaobname");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Pac");
-
-                    b.Property<string>("Phone");
-
-                    b.Property<string>("Post");
-
-                    b.Property<string>("Riverchief");
-
-                    b.Property<string>("Town");
-
-                    b.Property<string>("Village");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Managers");
                 });
 
             modelBuilder.Entity("RLCore.RL.Region", b =>

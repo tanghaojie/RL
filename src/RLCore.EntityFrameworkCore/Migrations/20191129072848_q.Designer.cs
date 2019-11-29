@@ -11,8 +11,8 @@ using RLCore.EntityFrameworkCore;
 namespace RLCore.Migrations
 {
     [DbContext(typeof(RLCoreDbContext))]
-    [Migration("20191128102316_init")]
-    partial class init
+    [Migration("20191129072848_q")]
+    partial class q
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,33 @@ namespace RLCore.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("RLCore.Authorization.User", b =>
+            modelBuilder.Entity("RLCore.RL.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<MultiPolygon>("Geom")
+                        .IsRequired()
+                        .HasColumnType("geometry (multipolygon)");
+
+                    b.Property<string>("Level")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Pac")
+                        .IsRequired();
+
+                    b.Property<string>("Parent")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Regions");
+                });
+
+            modelBuilder.Entity("RLCore.Users.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -77,69 +103,6 @@ namespace RLCore.Migrations
                     b.HasIndex("Username");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("RLCore.Entities.EF.TestEntityGeo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Content");
-
-                    b.Property<Point>("Location");
-
-                    b.Property<int>("PostId");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TestEntities");
-                });
-
-            modelBuilder.Entity("RLCore.Entities.EF.TestEntityGeo2", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Content");
-
-                    b.Property<Point>("Location")
-                        .HasColumnType("geometry (point, 4326)");
-
-                    b.Property<int>("PostId");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TestEntitie2s");
-                });
-
-            modelBuilder.Entity("RLCore.RL.Region", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<MultiPolygon>("Geom")
-                        .IsRequired()
-                        .HasColumnType("geometry (multipolygon, 4326)");
-
-                    b.Property<string>("Level")
-                        .IsRequired();
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<string>("Pac")
-                        .IsRequired();
-
-                    b.Property<string>("Parent")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Regions");
                 });
 #pragma warning restore 612, 618
         }

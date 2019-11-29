@@ -1,7 +1,10 @@
-﻿using Abp.UI;
+﻿using Abp.Domain.Repositories;
+using Abp.UI;
 using Abp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using RLCore.Encryption;
+using RLCore.Users;
 using RLCore.Web.Host.Authorization.JwtBearer;
 using RLCore.Web.Host.Models;
 using System;
@@ -15,26 +18,29 @@ namespace RLCore.Web.Host.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TokenAuthController : RLCoreWebHostControllerBase
+    public class AuthController : RLCoreWebHostControllerBase
     {
         private readonly TokenAuthConfiguration _configuration;
-        public TokenAuthController(TokenAuthConfiguration configuration)
+        private readonly IRepository<User> _userRepository;
+        public AuthController(
+            TokenAuthConfiguration configuration,
+            IRepository<User> userRepository
+            )
         {
             _configuration = configuration;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
         public AuthenticateResultModel Authenticate([FromBody] AuthenticateModel model)
         {
-            if (model.UserNameOrEmailAddress == "root" && model.Password == "root")
+            var username = model.Username;
+            var password = Password.MD5(model.Password);
+            if (_userRepository.Count(u => u.Username == username && u.Password == password) > 0)
             {
-                var claims = new[]
-                {
-                    //用户名
-                    new Claim(JwtRegisteredClaimNames.Sub, model.UserNameOrEmailAddress),
-                    //jwt唯一标识
+                var claims = new[] {
+                    new Claim(JwtRegisteredClaimNames.Sub, model.Username),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    //签发时间
                     new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
                 };
                 var now = DateTime.UtcNow;
@@ -55,7 +61,6 @@ namespace RLCore.Web.Host.Controllers
                     ExpireInSeconds = expInSeconds
                 };
             }
-
             throw new UserFriendlyException(401, "", "");
         }
 

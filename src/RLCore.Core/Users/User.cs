@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RLCore.Authorization
+namespace RLCore.Users
 {
     public class User : Entity, IHasCreationTime//, IHasOrder
     {

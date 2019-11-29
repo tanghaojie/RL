@@ -2,22 +2,20 @@
 using Abp.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
-using RLCore.Authorization;
-using RLCore.Entities.EF;
+using RLCore.Users;
 using RLCore.RL;
 
 namespace RLCore.EntityFrameworkCore
 {
     public class RLCoreDbContext : AbpDbContext
     {
-        //Add DbSet properties for your entities...
-        public DbSet<User> Users { get; set; }
+        public DbSet<Users.User> Users { get; set; }
 
         public DbSet<Region> Regions { get; set; }
+        public DbSet<River> Rivers { get; set; }
+        public DbSet<Channel> Channels { get; set; }
+        public DbSet<Manager> Managers { get; set; }
 
-        public DbSet<TestEntityGeo> TestEntities { get; set; }
-        public DbSet<TestEntityGeo2> TestEntitie2s { get; set; }
-        //public DbSet<TestEntityGeo3> TestEntitie3s { get; set; }
         public RLCoreDbContext(DbContextOptions<RLCoreDbContext> options)
             : base(options)
         {

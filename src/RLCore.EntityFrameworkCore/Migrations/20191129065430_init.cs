@@ -34,40 +34,6 @@ namespace RLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestEntitie2s",
-                schema: "rl",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    PostId = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(nullable: true),
-                    Location = table.Column<Point>(type: "geometry (point, 4326)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TestEntitie2s", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TestEntities",
-                schema: "rl",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    PostId = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(nullable: true),
-                    Location = table.Column<Point>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TestEntities", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 schema: "rl",
                 columns: table => new
@@ -136,14 +102,6 @@ namespace RLCore.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Regions",
-                schema: "rl");
-
-            migrationBuilder.DropTable(
-                name: "TestEntitie2s",
-                schema: "rl");
-
-            migrationBuilder.DropTable(
-                name: "TestEntities",
                 schema: "rl");
 
             migrationBuilder.DropTable(

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -10,9 +11,10 @@ using RLCore.EntityFrameworkCore;
 namespace RLCore.Migrations
 {
     [DbContext(typeof(RLCoreDbContext))]
-    partial class RLCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191129090413_qqq")]
+    partial class qqq
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,145 +23,6 @@ namespace RLCore.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            modelBuilder.Entity("RLCore.RL.Channel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double?>("Acfl");
-
-                    b.Property<string>("Adag");
-
-                    b.Property<string>("Bdtm");
-
-                    b.Property<double?>("Bepo");
-
-                    b.Property<double?>("Chle");
-
-                    b.Property<double?>("Chleli");
-
-                    b.Property<string>("Clas");
-
-                    b.Property<string>("Code");
-
-                    b.Property<long?>("Count");
-
-                    b.Property<double?>("Dcia");
-
-                    b.Property<double?>("Dpyn");
-
-                    b.Property<long?>("Dpyt");
-
-                    b.Property<double?>("ELat");
-
-                    b.Property<double?>("ELong");
-
-                    b.Property<double?>("Ecia");
-
-                    b.Property<string>("Eloc");
-
-                    b.Property<double?>("Flow");
-
-                    b.Property<string>("Flth");
-
-                    b.Property<string>("Func");
-
-                    b.Property<MultiLineString>("Geom")
-                        .HasColumnType("geometry (MultiLineString)");
-
-                    b.Property<string>("Grad");
-
-                    b.Property<string>("HasNew");
-
-                    b.Property<string>("Hnnm");
-
-                    b.Property<string>("Idname");
-
-                    b.Property<string>("Idtype");
-
-                    b.Property<double?>("Lat");
-
-                    b.Property<string>("Level");
-
-                    b.Property<string>("Loc");
-
-                    b.Property<double?>("Long");
-
-                    b.Property<long?>("Mbnu");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("NoLeader");
-
-                    b.Property<string>("Note");
-
-                    b.Property<string>("Pac");
-
-                    b.Property<string>("Prname");
-
-                    b.Property<string>("Prname1");
-
-                    b.Property<string>("Sid");
-
-                    b.Property<string>("StartDate");
-
-                    b.Property<string>("Type");
-
-                    b.Property<string>("Village");
-
-                    b.Property<string>("Wqle");
-
-                    b.Property<string>("Wrcd");
-
-                    b.Property<string>("Wrco");
-
-                    b.Property<string>("Wrus");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Channels");
-                });
-
-            modelBuilder.Entity("RLCore.RL.Manager", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AdRank");
-
-                    b.Property<string>("Belongtobasin");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("County");
-
-                    b.Property<string>("Department");
-
-                    b.Property<string>("Explain");
-
-                    b.Property<int?>("HasNorvBool");
-
-                    b.Property<string>("Manaobname");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Pac");
-
-                    b.Property<string>("Phone");
-
-                    b.Property<string>("Post");
-
-                    b.Property<string>("Riverchief");
-
-                    b.Property<string>("Town");
-
-                    b.Property<string>("Village");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Managers");
-                });
 
             modelBuilder.Entity("RLCore.RL.Region", b =>
                 {
@@ -194,11 +57,11 @@ namespace RLCore.Migrations
 
                     b.Property<string>("Alias");
 
-                    b.Property<double?>("Area");
+                    b.Property<double>("Area");
 
-                    b.Property<int?>("BoundaryRiverBool");
+                    b.Property<int>("BoundaryRiverBool");
 
-                    b.Property<double?>("BranchLevel");
+                    b.Property<double>("BranchLevel");
 
                     b.Property<string>("BranchRelation");
 
@@ -208,7 +71,7 @@ namespace RLCore.Migrations
 
                     b.Property<string>("CrossType");
 
-                    b.Property<double?>("Flow");
+                    b.Property<double>("Flow");
 
                     b.Property<MultiLineString>("Geom")
                         .HasColumnType("geometry (MultiLineString)");
@@ -219,13 +82,13 @@ namespace RLCore.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("NoLeaderBool");
+                    b.Property<int>("NoLeaderBool");
 
                     b.Property<string>("Pac");
 
                     b.Property<string>("Prname");
 
-                    b.Property<double?>("Rlen");
+                    b.Property<double>("Rlen");
 
                     b.Property<string>("Rname");
 

@@ -9,7 +9,7 @@ namespace RLCore.Web.Host.Models
     {
         [Required]
         [StringLength(256)]
-        public string UserNameOrEmailAddress { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [StringLength(256)]
