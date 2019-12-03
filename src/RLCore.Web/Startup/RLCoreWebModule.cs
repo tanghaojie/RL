@@ -7,12 +7,14 @@ using RLCore.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using RLCore.Web.Host;
+using Abp.Runtime.Session;
+using Abp.Dependency;
 
 namespace RLCore.Web.Startup
 {
     [DependsOn(
-        typeof(RLCoreApplicationModule), 
-        typeof(RLCoreEntityFrameworkCoreModule), 
+        typeof(RLCoreApplicationModule),
+        typeof(RLCoreEntityFrameworkCoreModule),
         typeof(AbpAspNetCoreModule),
         typeof(RLCoreWebHostModule)
         )]

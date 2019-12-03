@@ -1,16 +1,12 @@
-﻿using Abp.Domain.Entities;
-using NetTopologySuite.Geometries;
+﻿using Abp.Application.Services.Dto;
+using RLCore.Services.Dtos;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace RLCore.RL
+namespace RLCore.RLAppService.River.Dtos
 {
-    /// <summary>
-    /// 河道河段
-    /// </summary>
-    public class River : Entity
+    public class RiverOutput : EntityDto, IWktGeomDto
     {
         /// <summary>
         /// 水系名
@@ -105,34 +101,7 @@ namespace RLCore.RL
         /// <summary>
         /// 是否界河
         /// </summary>
-        [NotMapped]
-        public bool? BoundaryRiver {
-            get {
-                if (!BoundaryRiverBool.HasValue)
-                {
-                    return null;
-                }
-                return BoundaryRiverBool.Value > 0;
-            }
-            set {
-                if (value.HasValue)
-                {
-                    if (value.Value)
-                    {
-                        BoundaryRiverBool = 1;
-                    }
-                    else
-                    {
-                        BoundaryRiverBool = 0;
-                    }
-                }
-                else
-                {
-                    BoundaryRiverBool = null;
-                }
-            }
-        }
-        public int? BoundaryRiverBool { get; set; }
+        public bool? BoundaryRiver { get; set; }
 
         /// <summary>
         /// 流经村
@@ -147,34 +116,7 @@ namespace RLCore.RL
         /// <summary>
         /// 是否设河长
         /// </summary>
-        [NotMapped]
-        public bool? NoLeader {
-            get {
-                if (!NoLeaderBool.HasValue)
-                {
-                    return null;
-                }
-                return NoLeaderBool.Value > 0;
-            }
-            set {
-                if (value.HasValue)
-                {
-                    if (value.Value)
-                    {
-                        NoLeaderBool = 1;
-                    }
-                    else
-                    {
-                        NoLeaderBool = 0;
-                    }
-                }
-                else
-                {
-                    NoLeaderBool = null;
-                }
-            }
-        }
-        public int? NoLeaderBool { get; set; }
+        public bool? NoLeader { get; set; }
 
         /// <summary>
         /// 河段类型
@@ -186,7 +128,6 @@ namespace RLCore.RL
         /// </summary>
         public string Side { get; set; }
 
-        [Column(TypeName = "geometry (MultiLineString)")]
-        public MultiLineString Geom { get; set; }
+        public string Geom { get; set; }
     }
 }

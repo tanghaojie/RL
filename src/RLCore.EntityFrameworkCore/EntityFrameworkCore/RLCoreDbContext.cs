@@ -15,6 +15,9 @@ namespace RLCore.EntityFrameworkCore
         public DbSet<River> Rivers { get; set; }
         public DbSet<Channel> Channels { get; set; }
         public DbSet<Manager> Managers { get; set; }
+        public DbSet<Lake> Lakes { get; set; }
+        public DbSet<Reservoir> Reservoirs { get; set; }
+        public DbSet<Wetland> Wetlands { get; set; }
 
         public RLCoreDbContext(DbContextOptions<RLCoreDbContext> options)
             : base(options)

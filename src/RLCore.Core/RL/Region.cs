@@ -1,5 +1,7 @@
 ﻿using Abp.Domain.Entities;
+using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
+using RLCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +10,7 @@ using System.Text;
 
 namespace RLCore.RL
 {
-    public class Region : Entity
+    public class Region : Entity, IGeom<MultiPolygon>
     {
         //var geo = new NetTopologySuite.Geometries.Point(20, 20);
         //    geo.SRID = 4326;

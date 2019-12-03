@@ -1,15 +1,12 @@
-﻿using Abp.Domain.Entities;
+﻿using Abp.Application.Services.Dto;
+using RLCore.Services.Dtos;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace RLCore.RL
+namespace RLCore.RLAppService.Manager.Dtos
 {
-    /// <summary>
-    /// 河长
-    /// </summary>
-    public class Manager : Entity
+    public class ManagerOutput : EntityDto
     {
         /// <summary>
         /// 河长名称
@@ -74,34 +71,7 @@ namespace RLCore.RL
         /// <summary>
         /// 是否担任河段
         /// </summary>
-        [NotMapped]
-        public bool? HasNorv {
-            get {
-                if (!HasNorvBool.HasValue)
-                {
-                    return null;
-                }
-                return HasNorvBool.Value > 0;
-            }
-            set {
-                if (value.HasValue)
-                {
-                    if (value.Value)
-                    {
-                        HasNorvBool = 1;
-                    }
-                    else
-                    {
-                        HasNorvBool = 0;
-                    }
-                }
-                else
-                {
-                    HasNorvBool = null;
-                }
-            }
-        }
-        public int? HasNorvBool { get; set; }
+        public bool? HasNorv { get; set; }
 
         /// <summary>
         /// 所属流域

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -10,9 +11,10 @@ using RLCore.EntityFrameworkCore;
 namespace RLCore.Migrations
 {
     [DbContext(typeof(RLCoreDbContext))]
-    partial class RLCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191202030318_w")]
+    partial class w
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,183 +254,6 @@ namespace RLCore.Migrations
                     b.ToTable("Regions");
                 });
 
-            modelBuilder.Entity("RLCore.RL.Reservoir", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AbnsStand");
-
-                    b.Property<string>("AbnsType");
-
-                    b.Property<string>("Adag");
-
-                    b.Property<string>("AdmDep");
-
-                    b.Property<string>("AdmDepName");
-
-                    b.Property<double?>("Area");
-
-                    b.Property<string>("Bdtm");
-
-                    b.Property<double?>("BenResCap");
-
-                    b.Property<double?>("ChLev");
-
-                    b.Property<long?>("ChStand");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("Code");
-
-                    b.Property<long?>("Count");
-
-                    b.Property<string>("County");
-
-                    b.Property<double?>("DacrElev");
-
-                    b.Property<double?>("DeIrar");
-
-                    b.Property<double?>("DeLev");
-
-                    b.Property<long?>("DeStand");
-
-                    b.Property<double?>("DeadCap");
-
-                    b.Property<double?>("Elev");
-
-                    b.Property<string>("Elsy");
-
-                    b.Property<string>("EmtuType");
-
-                    b.Property<string>("EngGrad");
-
-                    b.Property<string>("EngStat");
-
-                    b.Property<double?>("FlLowLimLev");
-
-                    b.Property<double?>("FlLowLimLevCap");
-
-                    b.Property<double?>("FlcoCap");
-
-                    b.Property<double?>("FlcoLev");
-
-                    b.Property<double?>("Flow");
-
-                    b.Property<string>("Func");
-
-                    b.Property<MultiPolygon>("Geom")
-                        .HasColumnType("geometry (multipolygon)");
-
-                    b.Property<string>("Grad");
-
-                    b.Property<string>("HasNew");
-
-                    b.Property<double?>("Height");
-
-                    b.Property<string>("Hnnm");
-
-                    b.Property<string>("Iaob");
-
-                    b.Property<double?>("KdLength");
-
-                    b.Property<string>("KdStrType");
-
-                    b.Property<double?>("Lat");
-
-                    b.Property<string>("Level");
-
-                    b.Property<double?>("Long");
-
-                    b.Property<string>("Matrl");
-
-                    b.Property<double?>("MaxDifl");
-
-                    b.Property<double?>("MaxRfw");
-
-                    b.Property<string>("Mnag");
-
-                    b.Property<string>("MoTime");
-
-                    b.Property<string>("Mpob");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int?>("NoLeaderBool");
-
-                    b.Property<double?>("NormPoolStagCap");
-
-                    b.Property<string>("Note");
-
-                    b.Property<double?>("NsMaxRfw");
-
-                    b.Property<string>("NsType");
-
-                    b.Property<double?>("NsWeirHeght");
-
-                    b.Property<string>("NsWeirType");
-
-                    b.Property<string>("NsWrSlco");
-
-                    b.Property<string>("Pac");
-
-                    b.Property<string>("ReLicCode");
-
-                    b.Property<string>("Repe");
-
-                    b.Property<string>("Rvnm");
-
-                    b.Property<string>("Sid");
-
-                    b.Property<string>("Ssk");
-
-                    b.Property<string>("StartDate");
-
-                    b.Property<double?>("StorFlCap");
-
-                    b.Property<string>("Tegr");
-
-                    b.Property<string>("Town");
-
-                    b.Property<string>("Type");
-
-                    b.Property<string>("Village");
-
-                    b.Property<double?>("Vol");
-
-                    b.Property<long?>("WainNum");
-
-                    b.Property<string>("WainType");
-
-                    b.Property<double?>("WatLev");
-
-                    b.Property<double?>("WatShedArea");
-
-                    b.Property<string>("Wqle");
-
-                    b.Property<string>("WrAbns");
-
-                    b.Property<string>("Wrcd");
-
-                    b.Property<string>("WrcdDp");
-
-                    b.Property<string>("Wrco");
-
-                    b.Property<string>("Wrpd");
-
-                    b.Property<string>("Wrrs");
-
-                    b.Property<string>("Wrws");
-
-                    b.Property<string>("WrwsSp");
-
-                    b.Property<string>("Wsob");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Reservoirs");
-                });
-
             modelBuilder.Entity("RLCore.RL.River", b =>
                 {
                     b.Property<int>("Id")
@@ -488,79 +313,6 @@ namespace RLCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rivers");
-                });
-
-            modelBuilder.Entity("RLCore.RL.Wetland", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double?>("Area");
-
-                    b.Property<string>("Bscd");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("Clas");
-
-                    b.Property<string>("County");
-
-                    b.Property<double?>("Elev");
-
-                    b.Property<string>("Fact");
-
-                    b.Property<MultiPolygon>("Geom")
-                        .HasColumnType("geometry (multipolygon)");
-
-                    b.Property<string>("HasNew");
-
-                    b.Property<string>("Inde");
-
-                    b.Property<string>("Inti");
-
-                    b.Property<string>("Inv");
-
-                    b.Property<string>("Krname");
-
-                    b.Property<string>("Level");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int?>("NoLeaderBool");
-
-                    b.Property<string>("Note");
-
-                    b.Property<string>("Owag");
-
-                    b.Property<string>("Pac");
-
-                    b.Property<string>("Pmst");
-
-                    b.Property<string>("Province");
-
-                    b.Property<string>("Retype");
-
-                    b.Property<string>("Rvlv");
-
-                    b.Property<string>("Sid");
-
-                    b.Property<string>("Type");
-
-                    b.Property<double?>("Vgar");
-
-                    b.Property<string>("Waid");
-
-                    b.Property<string>("Waname");
-
-                    b.Property<string>("Wasu");
-
-                    b.Property<string>("Wrfi");
-
-                    b.Property<string>("Wrkr");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Wetlands");
                 });
 
             modelBuilder.Entity("RLCore.Users.User", b =>
