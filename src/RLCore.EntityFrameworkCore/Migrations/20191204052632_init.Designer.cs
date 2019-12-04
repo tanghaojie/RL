@@ -11,8 +11,8 @@ using RLCore.EntityFrameworkCore;
 namespace RLCore.Migrations
 {
     [DbContext(typeof(RLCoreDbContext))]
-    [Migration("20191202053841_www")]
-    partial class www
+    [Migration("20191204052632_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -228,6 +228,86 @@ namespace RLCore.Migrations
                     b.ToTable("Managers");
                 });
 
+            modelBuilder.Entity("RLCore.RL.ManagerLakeRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<int>("LakeId");
+
+                    b.Property<int>("ManagerId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LakeId");
+
+                    b.HasIndex("ManagerId");
+
+                    b.ToTable("ManagerLakeRelations");
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerReservoirRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<int>("ManagerId");
+
+                    b.Property<int>("ReservoirId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("ReservoirId");
+
+                    b.ToTable("ManagerReservoirRelations");
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerRiverRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<int>("ManagerId");
+
+                    b.Property<int>("RiverId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("RiverId");
+
+                    b.ToTable("ManagerRiverRelations");
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerWetlandRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<int>("ManagerId");
+
+                    b.Property<int>("WetlandId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("WetlandId");
+
+                    b.ToTable("ManagerWetlandRelations");
+                });
+
             modelBuilder.Entity("RLCore.RL.Region", b =>
                 {
                     b.Property<int>("Id")
@@ -311,9 +391,9 @@ namespace RLCore.Migrations
 
                     b.Property<double?>("FlLowLimLevCap");
 
-                    b.Property<double?>("FlcLev");
-
                     b.Property<double?>("FlcoCap");
+
+                    b.Property<double?>("FlcoLev");
 
                     b.Property<double?>("Flow");
 
@@ -492,6 +572,79 @@ namespace RLCore.Migrations
                     b.ToTable("Rivers");
                 });
 
+            modelBuilder.Entity("RLCore.RL.Wetland", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double?>("Area");
+
+                    b.Property<string>("Bscd");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Clas");
+
+                    b.Property<string>("County");
+
+                    b.Property<double?>("Elev");
+
+                    b.Property<string>("Fact");
+
+                    b.Property<MultiPolygon>("Geom")
+                        .HasColumnType("geometry (multipolygon)");
+
+                    b.Property<string>("HasNew");
+
+                    b.Property<string>("Inde");
+
+                    b.Property<string>("Inti");
+
+                    b.Property<string>("Inv");
+
+                    b.Property<string>("Krname");
+
+                    b.Property<string>("Level");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("NoLeaderBool");
+
+                    b.Property<string>("Note");
+
+                    b.Property<string>("Owag");
+
+                    b.Property<string>("Pac");
+
+                    b.Property<string>("Pmst");
+
+                    b.Property<string>("Province");
+
+                    b.Property<string>("Retype");
+
+                    b.Property<string>("Rvlv");
+
+                    b.Property<string>("Sid");
+
+                    b.Property<string>("Type");
+
+                    b.Property<double?>("Vgar");
+
+                    b.Property<string>("Waid");
+
+                    b.Property<string>("Waname");
+
+                    b.Property<string>("Wasu");
+
+                    b.Property<string>("Wrfi");
+
+                    b.Property<string>("Wrkr");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Wetlands");
+                });
+
             modelBuilder.Entity("RLCore.Users.User", b =>
                 {
                     b.Property<int>("Id")
@@ -545,6 +698,58 @@ namespace RLCore.Migrations
                     b.HasIndex("Username");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerLakeRelation", b =>
+                {
+                    b.HasOne("RLCore.RL.Lake", "Lake")
+                        .WithMany()
+                        .HasForeignKey("LakeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RLCore.RL.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerReservoirRelation", b =>
+                {
+                    b.HasOne("RLCore.RL.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RLCore.RL.Reservoir", "Reservoir")
+                        .WithMany()
+                        .HasForeignKey("ReservoirId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerRiverRelation", b =>
+                {
+                    b.HasOne("RLCore.RL.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RLCore.RL.River", "River")
+                        .WithMany()
+                        .HasForeignKey("RiverId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerWetlandRelation", b =>
+                {
+                    b.HasOne("RLCore.RL.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RLCore.RL.Wetland", "Wetland")
+                        .WithMany()
+                        .HasForeignKey("WetlandId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

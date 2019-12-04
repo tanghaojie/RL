@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Repositories;
+﻿using Abp.Authorization;
+using Abp.Domain.Repositories;
 using Abp.UI;
 using RLCore.Encryption;
 using RLCore.Users.Dtos;
@@ -34,5 +35,43 @@ namespace RLCore.Users
         {
             return _userRepository.GetAll().Where(u => u.Username.ToUpper() == username.ToUpper()).Count() > 0;
         }
+
+        [AbpAuthorize]
+        public UserOutput GetInfo()
+        {
+            var user = CurrentUser();
+            return ObjectMapper.Map<UserOutput>(user);
+        }
+
+
+        [AbpAuthorize]
+        public void ChangePassword(string newPass)
+        {
+            var user = CurrentUser();
+            user.Password = Password.MD5(newPass);
+        }
+
+        public void ChangeInfo(ChangeInfoInput input)
+        {
+            var user = CurrentUser();
+            user.Phone = input.Phone;
+            user.Email = input.Email;
+            user.Gender = input.Gender;
+            user.Birthday = input.Birthday;
+            user.Remark = input.Remark;
+            user.Realname = input.Realname;
+        }
+
+
+
+
+        private User CurrentUser()
+        {
+            var id = AbpSession.UserId;
+            if (!id.HasValue) { return null; }
+            var idi = (int)id.Value;
+            return _userRepository.Get(idi);
+        }
+
     }
 }

@@ -226,6 +226,86 @@ namespace RLCore.Migrations
                     b.ToTable("Managers");
                 });
 
+            modelBuilder.Entity("RLCore.RL.ManagerLakeRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<int>("LakeId");
+
+                    b.Property<int>("ManagerId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LakeId");
+
+                    b.HasIndex("ManagerId");
+
+                    b.ToTable("ManagerLakeRelations");
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerReservoirRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<int>("ManagerId");
+
+                    b.Property<int>("ReservoirId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("ReservoirId");
+
+                    b.ToTable("ManagerReservoirRelations");
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerRiverRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<int>("ManagerId");
+
+                    b.Property<int>("RiverId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("RiverId");
+
+                    b.ToTable("ManagerRiverRelations");
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerWetlandRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<int>("ManagerId");
+
+                    b.Property<int>("WetlandId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("WetlandId");
+
+                    b.ToTable("ManagerWetlandRelations");
+                });
+
             modelBuilder.Entity("RLCore.RL.Region", b =>
                 {
                     b.Property<int>("Id")
@@ -616,6 +696,58 @@ namespace RLCore.Migrations
                     b.HasIndex("Username");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerLakeRelation", b =>
+                {
+                    b.HasOne("RLCore.RL.Lake", "Lake")
+                        .WithMany()
+                        .HasForeignKey("LakeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RLCore.RL.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerReservoirRelation", b =>
+                {
+                    b.HasOne("RLCore.RL.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RLCore.RL.Reservoir", "Reservoir")
+                        .WithMany()
+                        .HasForeignKey("ReservoirId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerRiverRelation", b =>
+                {
+                    b.HasOne("RLCore.RL.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RLCore.RL.River", "River")
+                        .WithMany()
+                        .HasForeignKey("RiverId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RLCore.RL.ManagerWetlandRelation", b =>
+                {
+                    b.HasOne("RLCore.RL.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RLCore.RL.Wetland", "Wetland")
+                        .WithMany()
+                        .HasForeignKey("WetlandId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -17,8 +17,9 @@ namespace RLCore.Web.Startup
             {
                 options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { "Bearer", new string[] { } }, });
 
-                options.SwaggerDoc("v1", new Info { 
-                    Title = "RLCore API", 
+                options.SwaggerDoc("v1", new Info
+                {
+                    Title = "RLCore API",
                     Version = "v1",
                     Description = "接口文档说明",
                     TermsOfService = "None",
@@ -41,8 +42,7 @@ namespace RLCore.Web.Startup
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "RLCore API V1");
-                //options.IndexStream = () => Assembly.GetExecutingAssembly()
-                //   .GetManifestResourceStream("RLCore.Web.wwwroot.swagger.ui.index.html");
+                options.IndexStream = () => Assembly.GetExecutingAssembly().GetManifestResourceStream("RLCore.Web.wwwroot.swagger.ui.index.html");
             });
         }
     }

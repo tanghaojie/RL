@@ -18,7 +18,7 @@ namespace RLCore
         {
             Configuration.Auditing.IsEnabled = false;
             Configuration.Localization.IsEnabled = false;
-            Configuration.Authorization.IsEnabled = false;
+            Configuration.Authorization.IsEnabled = true;
             Configuration.MultiTenancy.IsEnabled = false;
 
             RLCoreLocalizationConfigurer.Configure(Configuration.Localization);

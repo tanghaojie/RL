@@ -10,6 +10,7 @@ namespace RLCore.Users.Dtos
         public UsersMapProfile()
         {
             CreateMap<CreateInput, User>();
+            CreateMap<User, UserOutput>();
             //CreateMap<UserDto, User>()
             //    .ForMember(x => x.Roles, opt => opt.Ignore())
             //    .ForMember(x => x.CreationTime, opt => opt.Ignore());

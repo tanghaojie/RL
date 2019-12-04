@@ -10,5 +10,13 @@ namespace RLCore.Users
     public interface IUserAppService : IApplicationService
     {
         Task<int> Create(CreateInput input);
+
+        UserOutput GetInfo();
+
+        bool UsernameExist(string username);
+
+        void ChangePassword(string newPass);
+
+        void ChangeInfo(ChangeInfoInput input);
     }
 }
