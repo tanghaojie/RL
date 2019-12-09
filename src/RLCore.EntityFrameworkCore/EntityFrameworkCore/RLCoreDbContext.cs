@@ -9,8 +9,7 @@ namespace RLCore.EntityFrameworkCore
 {
     public class RLCoreDbContext : AbpDbContext
     {
-        public DbSet<Users.User> Users { get; set; }
-
+        public DbSet<User> Users { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<River> Rivers { get; set; }
         public DbSet<Channel> Channels { get; set; }
@@ -22,6 +21,10 @@ namespace RLCore.EntityFrameworkCore
         public DbSet<ManagerLakeRelation> ManagerLakeRelations { get; set; }
         public DbSet<ManagerReservoirRelation> ManagerReservoirRelations { get; set; }
         public DbSet<ManagerWetlandRelation> ManagerWetlandRelations { get; set; }
+
+        public DbSet<ManagerLakeSidRelation> ManagerLakeSidRelations { get; set; }
+        public DbSet<ManagerReservoirSidRelation> ManagerReservoirSidRelations { get; set; }
+        public DbSet<ManagerWetlandSidRelation> ManagerWetlandSidRelations { get; set; }
 
         public RLCoreDbContext(DbContextOptions<RLCoreDbContext> options)
             : base(options)
@@ -54,6 +57,15 @@ namespace RLCore.EntityFrameworkCore
 
             builder.Entity<ManagerWetlandRelation>().HasIndex(u => u.ManagerId);
             builder.Entity<ManagerWetlandRelation>().HasIndex(u => u.WetlandId);
+
+            builder.Entity<ManagerLakeSidRelation>().HasIndex(u => u.ManagerId);
+            builder.Entity<ManagerLakeSidRelation>().HasIndex(u => u.LakeSid);
+
+            builder.Entity<ManagerReservoirSidRelation>().HasIndex(u => u.ManagerId);
+            builder.Entity<ManagerReservoirSidRelation>().HasIndex(u => u.ReservoirSid);
+
+            builder.Entity<ManagerWetlandSidRelation>().HasIndex(u => u.ManagerId);
+            builder.Entity<ManagerWetlandSidRelation>().HasIndex(u => u.WetlandSid);
         }
     }
 }
