@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RLCore.RLAppService.ManagerLakeSidRelation.Dtos
+namespace RLCore.RLAppService.ManagerLakeRelation.Dtos
 {
-    public class AddInput
+    public class CreateInput
     {
         [Required]
         public int ManagerId { get; set; }
 
         [Required]
-        public string LakeSid { get; set; }
+        public int LakeId { get; set; }
     }
 }

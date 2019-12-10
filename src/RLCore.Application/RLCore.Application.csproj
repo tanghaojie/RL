@@ -18,8 +18,8 @@
     <PackageReference Include="Abp.AutoMapper" Version="4.9.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="RLAppService\ManagerReservoirSidRelation\Dtos\" />
+    <Folder Include="RLAppService\ManagerReservoirRelation\Dtos\" />
     <Folder Include="RLAppService\ManagerRiverRelation\Dtos\" />
-    <Folder Include="RLAppService\ManagerWetlandSidRelation\Dtos\" />
+    <Folder Include="RLAppService\ManagerWetlandRelation\Dtos\" />
   </ItemGroup>
 </Project>

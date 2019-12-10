@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using RLCore.Web.Host;
 using Abp.Runtime.Session;
 using Abp.Dependency;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Abp.Configuration.Startup;
 
 namespace RLCore.Web.Startup
 {
@@ -30,6 +32,7 @@ namespace RLCore.Web.Startup
         public override void PreInitialize()
         {
             Configuration.Navigation.Providers.Add<RLCoreNavigationProvider>();
+           // Configuration.ReplaceService<IExceptionFilter, JTAbpExceptionFilter>(DependencyLifeStyle.Transient);
         }
 
         public override void Initialize()

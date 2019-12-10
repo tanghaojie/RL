@@ -7,7 +7,7 @@ namespace RLCore.Web.Controllers
         public ActionResult Index()
         {
             return Redirect("/swagger");
-            return View();
+            //return View();
         }
 
         public ActionResult About()

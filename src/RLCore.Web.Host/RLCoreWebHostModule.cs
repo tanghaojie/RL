@@ -31,6 +31,7 @@ namespace RLCore.Web.Host
         public override void PreInitialize()
         {
             Configuration.DefaultNameOrConnectionString = _appConfiguration.GetConnectionString(RLCoreConsts.ConnectionStringName);
+
             Configuration.Modules.AbpAspNetCore()
               .CreateControllersForAppServices(
                   typeof(RLCoreApplicationModule).GetAssembly()

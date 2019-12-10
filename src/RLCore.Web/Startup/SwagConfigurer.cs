@@ -33,6 +33,8 @@ namespace RLCore.Web.Startup
                     In = "header",
                     Type = "apiKey"
                 });
+
+                options.CustomSchemaIds(x => x.FullName);
             });
         }
 

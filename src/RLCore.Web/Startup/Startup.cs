@@ -1,4 +1,5 @@
 ﻿using Abp.AspNetCore;
+using Abp.AspNetCore.Mvc.ExceptionHandling;
 using Abp.Castle.Logging.Log4Net;
 using Abp.EntityFrameworkCore;
 using Castle.Facilities.Logging;
@@ -24,7 +25,6 @@ namespace RLCore.Web.Startup
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //Configure DbContext
             services.AddAbpDbContext<RLCoreDbContext>(options => { DbContextOptionsConfigurer.Configure(options.DbContextOptions, options.ConnectionString); });
 
             MvcConfigurer.Configure(services);
@@ -32,19 +32,19 @@ namespace RLCore.Web.Startup
             AuthConfigurer.Configure(services, _appConfiguration);
             SwagConfigurer.Configure(services);
 
-            //Configure Abp and Dependency Injection
-            return services.AddAbp<RLCoreWebModule>(options =>
+            var result = services.AddAbp<RLCoreWebModule>(options =>
             {
-                //Configure Log4Net logging
                 options.IocManager.IocContainer.AddFacility<LoggingFacility>(
                     f => f.UseAbpLog4Net().WithConfig("log4net.config")
                 );
             });
+
+            return result;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseAbp(); //Initializes ABP framework.
+            app.UseAbp();
             app.UseAuthentication();
             app.UseStaticFiles();
             if (env.IsDevelopment())
