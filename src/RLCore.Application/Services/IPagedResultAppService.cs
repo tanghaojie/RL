@@ -11,6 +11,6 @@ namespace RLCore.Services
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TGetInput : IPagedResultRequest
     {
-        PagedResultDto<TEntityDto> Get(TGetInput input);
+        PagedResultDto<TEntityDto> GetPaged(TGetInput input);
     }
 }

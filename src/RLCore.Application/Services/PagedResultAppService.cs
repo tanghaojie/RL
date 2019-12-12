@@ -19,7 +19,7 @@ namespace RLCore.Services
             Repository = repository;
         }
 
-        public virtual PagedResultDto<TEntityDto> Get(TGetInput input)
+        public virtual PagedResultDto<TEntityDto> GetPaged(TGetInput input)
         {
             var res = Repository.GetAll();
             var total = res.Count();
