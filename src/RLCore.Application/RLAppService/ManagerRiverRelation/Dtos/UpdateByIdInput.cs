@@ -1,0 +1,1 @@
+using Abp.Application.Services.Dto;using System;using System.Collections.Generic;using System.ComponentModel.DataAnnotations;namespace RLCore.RLAppService.ManagerRiverRelation.Dtos{    public class UpdateByIdInput : IEntityDto    {        [Required]        public int Id { get; set; }    }}

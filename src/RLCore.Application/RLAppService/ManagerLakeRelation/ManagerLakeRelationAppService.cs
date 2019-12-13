@@ -1,14 +1,11 @@
-﻿using Abp.Application.Services;
+﻿using Abp.Authorization;
 using Abp.Domain.Repositories;
 using RLCore.RLAppService.ManagerLakeRelation.Dtos;
 using RLCore.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RLCore.RLAppService.ManagerLakeRelation
 {
+    [AbpAuthorize]
     public class ManagerLakeRelationAppService
         : JTAsyncCrudAppService<RL.ManagerLakeRelation, ManagerLakeRelationOutput, int, GetPagedInput, CreateInput, UpdateByIdInput>,
         IManagerLakeRelationAppService
@@ -18,6 +15,5 @@ namespace RLCore.RLAppService.ManagerLakeRelation
         {
             UpdateByIdEnabled = false;
         }
-
     }
 }

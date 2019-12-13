@@ -11,15 +11,15 @@
     <RootNamespace>RLCore</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="ImplementOfJTAsyncCrudAppServiceCodeBuilder\**" />
+    <EmbeddedResource Remove="ImplementOfJTAsyncCrudAppServiceCodeBuilder\**" />
+    <None Remove="ImplementOfJTAsyncCrudAppServiceCodeBuilder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\RLCore.Core\RLCore.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Abp.EntityFrameworkCore" Version="4.9.0" />
     <PackageReference Include="Abp.AutoMapper" Version="4.9.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="RLAppService\ManagerReservoirRelation\Dtos\" />
-    <Folder Include="RLAppService\ManagerRiverRelation\Dtos\" />
-    <Folder Include="RLAppService\ManagerWetlandRelation\Dtos\" />
   </ItemGroup>
 </Project>

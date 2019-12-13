@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
 using RLCore.Users;
 using RLCore.RL;
+using System.Linq;
 
 namespace RLCore.EntityFrameworkCore
 {
@@ -29,7 +30,7 @@ namespace RLCore.EntityFrameworkCore
         public RLCoreDbContext(DbContextOptions<RLCoreDbContext> options)
             : base(options)
         {
-
+         
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

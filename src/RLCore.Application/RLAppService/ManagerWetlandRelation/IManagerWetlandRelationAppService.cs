@@ -1,10 +1,1 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RLCore.RLAppService.ManagerWetlandRelation
-{
-    public interface IManagerWetlandRelationAppService
-    {
-    }
-}
+using RLCore.RLAppService.ManagerWetlandRelation.Dtos;using RLCore.Services;namespace RLCore.RLAppService.ManagerWetlandRelation{    public interface IManagerWetlandRelationAppService        : IJTAsyncCrudAppService<ManagerWetlandRelationOutput, int, GetPagedInput, CreateInput, UpdateByIdInput>    {    }}

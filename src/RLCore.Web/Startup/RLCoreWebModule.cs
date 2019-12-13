@@ -32,7 +32,6 @@ namespace RLCore.Web.Startup
         public override void PreInitialize()
         {
             Configuration.Navigation.Providers.Add<RLCoreNavigationProvider>();
-           // Configuration.ReplaceService<IExceptionFilter, JTAbpExceptionFilter>(DependencyLifeStyle.Transient);
         }
 
         public override void Initialize()

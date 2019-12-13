@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RLCore.RLAppService.ManagerWetlandRelation
-{
-    public class ManagerWetlandRelationAppService
-    {
-    }
-}
+using Abp.Authorization;
+using Abp.Domain.Repositories;using RLCore.RLAppService.ManagerWetlandRelation.Dtos;using RLCore.Services;namespace RLCore.RLAppService.ManagerWetlandRelation{
+    [AbpAuthorize]    public class ManagerWetlandRelationAppService        : JTAsyncCrudAppService<RL.ManagerWetlandRelation, ManagerWetlandRelationOutput, int, GetPagedInput, CreateInput, UpdateByIdInput>,        IManagerWetlandRelationAppService    {        public ManagerWetlandRelationAppService(IRepository<RL.ManagerWetlandRelation> repository)            : base(repository)        {            UpdateByIdEnabled = false;        }    }}

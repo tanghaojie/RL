@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RLCore.RLAppService.ManagerReservoirRelation
-{
-    public class ManagerReservoirRelationAppService
-    {
-    }
-}
+using Abp.Authorization;
+using Abp.Domain.Repositories;using RLCore.RLAppService.ManagerReservoirRelation.Dtos;using RLCore.Services;namespace RLCore.RLAppService.ManagerReservoirRelation{
+    [AbpAuthorize]    public class ManagerReservoirRelationAppService        : JTAsyncCrudAppService<RL.ManagerReservoirRelation, ManagerReservoirRelationOutput, int, GetPagedInput, CreateInput, UpdateByIdInput>,        IManagerReservoirRelationAppService    {        public ManagerReservoirRelationAppService(IRepository<RL.ManagerReservoirRelation> repository)            : base(repository)        {            UpdateByIdEnabled = false;        }    }}

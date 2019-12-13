@@ -35,10 +35,10 @@ namespace RLCore.Services
         where TGetPagedInput : IPagedResultRequest
         where TUpdateByIdInput : IEntityDto<TPrimaryKey>
     {
-        //Task<TEntityDto> GetSingleById(TPrimaryKey id);
+        Task<TEntityDto> GetSingleById(TPrimaryKey id);
         Task<TEntityDto> Create(TCreateInput input);
-        //Task<TEntityDto> UpdateById(TUpdateByIdInput input);
-        //Task DeleteById(TPrimaryKey id);
-        //Task<PagedResultDto<TEntityDto>> GetPaged(TGetPagedInput input);
+        Task<TEntityDto> UpdateById(TUpdateByIdInput input);
+        Task DeleteById(TPrimaryKey id);
+        Task<PagedResultDto<TEntityDto>> GetPaged(TGetPagedInput input);
     }
 }

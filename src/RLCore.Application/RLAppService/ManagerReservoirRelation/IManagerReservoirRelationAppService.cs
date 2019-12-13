@@ -1,10 +1,1 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RLCore.RLAppService.ManagerReservoirRelation
-{
-    public interface IManagerReservoirRelationAppService
-    {
-    }
-}
+using RLCore.RLAppService.ManagerReservoirRelation.Dtos;using RLCore.Services;namespace RLCore.RLAppService.ManagerReservoirRelation{    public interface IManagerReservoirRelationAppService        : IJTAsyncCrudAppService<ManagerReservoirRelationOutput, int, GetPagedInput, CreateInput, UpdateByIdInput>    {    }}

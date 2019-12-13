@@ -9,7 +9,6 @@ namespace RLCore.EntityFrameworkCore
             string connectionString
             )
         {
-            /* This is the single point to configure DbContextOptions for RLCoreDbContext */
             dbContextOptions.UseNpgsql(connectionString, o => o.UseNetTopologySuite());
         }
     }

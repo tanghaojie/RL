@@ -1,0 +1,2 @@
+using Abp.Application.Services.Dto;using System;using System.Collections.Generic;namespace RLCore.RLAppService.ManagerRiverRelation.Dtos{    public class ManagerRiverRelationOutput : EntityDto    {
+        public int ManagerId { get; set; }        public int RiverId { get; set; }        public DateTime CreationTime { get; set; } = DateTime.Now;    }}

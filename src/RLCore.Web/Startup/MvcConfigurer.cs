@@ -27,9 +27,9 @@ namespace RLCore.Web.Startup
     {
         public static void Configure(IServiceCollection services)
         {
-            //services.AddMvc(options => { options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); });
             services.AddMvc(options =>
             {
+                //options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 options.Filters.AddService(typeof(JTAbpExceptionFilter), 1);
             });
         }

@@ -1,10 +1,1 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RLCore.RLAppService.ManagerRiverRelation
-{
-    public interface IManagerRiverRelationAppService
-    {
-    }
-}
+using RLCore.RLAppService.ManagerRiverRelation.Dtos;using RLCore.Services;namespace RLCore.RLAppService.ManagerRiverRelation{    public interface IManagerRiverRelationAppService        : IJTAsyncCrudAppService<ManagerRiverRelationOutput, int, GetPagedInput, CreateInput, UpdateByIdInput>    {    }}
