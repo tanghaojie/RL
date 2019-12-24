@@ -8,6 +8,19 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 namespace RLCore.Services
 {
+    public abstract class JTCrudAppServiceBase<TEntity, TEntityDto, TGetPagedInput, TCreateInput, TUpdateByIdInput>
+        : JTCrudAppServiceBase<TEntity, TEntityDto, int, TGetPagedInput, TCreateInput, TUpdateByIdInput>
+        where TEntity : class, IEntity<int>
+        where TEntityDto : IEntityDto<int>
+        where TUpdateByIdInput : IEntityDto<int>
+        where TGetPagedInput : IPagedResultRequest
+    {
+        protected JTCrudAppServiceBase(IRepository<TEntity, int> repository) : base(repository)
+        {
+        }
+    }
+
+
     public abstract class JTCrudAppServiceBase<TEntity, TEntityDto, TPrimaryKey, TGetPagedInput, TCreateInput, TUpdateByIdInput>
         : ApplicationService
         where TEntity : class, IEntity<TPrimaryKey>

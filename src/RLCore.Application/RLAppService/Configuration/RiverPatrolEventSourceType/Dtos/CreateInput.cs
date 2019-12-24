@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RLCore.Configuration.Dtos
+namespace RLCore.RLAppService.Configuration.RiverPatrolEventSourceType.Dtos
 {
-    public class AddRiverPatrolEventTypeInput
+    public class CreateInput
     {
         [Required]
         public string Name { get; set; }
@@ -13,8 +13,5 @@ namespace RLCore.Configuration.Dtos
         public string Description { get; set; }
 
         public string Data { get; set; }
-
-        public int? ParentId { get; set; }
- 
     }
 }

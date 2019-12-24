@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RLCore.Repositories
 {
-    public interface IConfigRepository : IRepository<TreeConfigEntity>
+    public interface IConfigRepository : IRepository<TreeConfiguration>
     {
     }
 }

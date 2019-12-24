@@ -18,107 +18,133 @@ namespace RLCore.Configuration
             _ConfigRepository = ConfigRepository;
         }
 
-
-
-        public async Task<TreeConfigDto> Add(string configName, TreeConfigDto config, int? parentId = null)
+        public IQueryable<TreeConfiguration> GetAll(string configName, bool topOnly = true)
         {
-            var id = await _ConfigRepository.InsertAndGetIdAsync(new TreeConfigEntity
-            {
-                ConfigName = configName,
-                CreationTime = config.CreationTime,
-                Data = config.Data,
-                Description = config.Description,
-                Name = config.Name,
-                ParentId = parentId,
-            });
-            if (config.Subs != null && config.Subs.Count > 0)
-            {
-                foreach (var sub in config.Subs)
-                {
-                    await Add(configName, sub, id);
-                }
-            }
-            return await Get(id);
+            return _ConfigRepository.GetAll().Where(u => u.ConfigName == configName && (topOnly ? u.Parent == null : true));
         }
 
-        public async Task Delete(int id)
+        public async Task<IList<TreeConfiguration>> GetAllAsync(string configName, bool topOnly = true)
+        {
+            return await _ConfigRepository.GetAllListAsync(u => u.ConfigName == configName && (topOnly ? u.Parent == null : true));
+        }
+
+
+        public async Task<TreeConfiguration> GetAsync(int id)
+        {
+            return await _ConfigRepository.GetAsync(id);
+        }
+
+
+
+
+        public async Task<TreeConfiguration> AddAsync(string configName, TreeConfiguration entity)
+        {
+            entity.ConfigName = configName;
+            var id = await _ConfigRepository.InsertAndGetIdAsync(entity);
+            if (entity.Subs != null && entity.Subs.Count > 0)
+            {
+                foreach (var sub in entity.Subs)
+                {
+                    sub.ParentId = id;
+                    await AddAsync(configName, sub);
+                }
+            }
+            return await GetAsync(id);
+        }
+
+
+
+
+        public async Task DeleteAsync(int id)
         {
             await _ConfigRepository.DeleteAsync(id);
         }
 
-        public async Task<TreeConfigDto> Get(int id)
+
+
+
+
+        public async Task<TreeConfiguration> UpdateAsync(TreeConfiguration entity)
         {
-            return MapWithoutParent(await _ConfigRepository.GetAsync(id));
+            var id = entity.Id;
+            var inDb = await _ConfigRepository.GetAsync(id);
+            inDb.Data = entity.Data;
+            inDb.Description = entity.Description;
+            inDb.Name = entity.Name;
+            return await GetAsync(id);
         }
 
-        public async Task<IList<TreeConfigDto>> GetAll(string configName)
-        {
-            var xx = await _ConfigRepository.GetAllListAsync(u => u.ConfigName == configName && u.Parent == null);
 
-            return MapWithoutParent(xx);
-        }
 
-        public async Task<TreeConfigDto> Update(TreeConfigDto config, bool cascade = false)
-        {
-            var id = config.Id;
-            var entity = await _ConfigRepository.GetAsync(id);
-            entity.Data = config.Data;
-            entity.Description = config.Description;
-            entity.Name = config.Name;
-            //entity.ParentId = config.Parent?.Id;
-            if (cascade && config.Subs != null && config.Subs.Count > 0)
-            {
-                foreach (var sub in config.Subs)
-                {
-                    await Update(sub, cascade);
-                }
-            }
-            return await Get(id);
-        }
 
-        public async Task<bool> NameExist(string configName, string name, int? parentId = null)
+        public async Task<bool> NameExistAsync(string configName, string name, int? parentId = null)
         {
             return await _ConfigRepository.CountAsync(u => u.ConfigName == configName && u.ParentId == parentId && u.Name == name) > 0;
         }
 
-
-
-        private IList<TreeConfigDto> MapWithoutParent(IList<TreeConfigEntity> entities)
+        public async Task<bool> ExistAsync(string configName, int id)
         {
-            if (entities == null)
-            {
-                return null;
-            }
-            var len = entities.Count;
-            if (len <= 0)
-            {
-                return new List<TreeConfigDto>();
-            }
-            var list = new List<TreeConfigDto>();
-            foreach (var e in entities)
-            {
-                list.Add(MapWithoutParent(e));
-            }
-            return list;
+            return await _ConfigRepository.CountAsync(u => u.ConfigName == configName && u.Id == id) > 0;
         }
 
-        private TreeConfigDto MapWithoutParent(TreeConfigEntity entity)
+        public bool Exist(string configName, int id)
         {
-            if (entity == null)
-            {
-                return null;
-            }
-            return new TreeConfigDto
-            {
-                Id = entity.Id,
-                CreationTime = entity.CreationTime,
-                Data = entity.Data,
-                Description = entity.Description,
-                Name = entity.Name,
-                //Parent = MappingTop(entity.Parent),
-                Subs = MapWithoutParent(entity.Subs)
-            };
+            return _ConfigRepository.Count(u => u.ConfigName == configName && u.Id == id) > 0;
         }
+
+
+
+
+        public int Count(string configName, bool topOnly = true)
+        {
+            var query = _ConfigRepository.GetAll().Where(u => u.ConfigName == configName && (topOnly ? u.Parent == null : true));
+            return query.Count();
+        }
+
+        public async Task<int> CountAsync(string configName, bool topOnly = true)
+        {
+            var query = _ConfigRepository.GetAll().Where(u => u.ConfigName == configName && (topOnly ? u.Parent == null : true));
+            return await query.CountAsync();
+        }
+
+
+
+        //private IList<TreeConfigDto> MapWithoutParent(IList<TreeConfigEntity> entities)
+        //{
+        //    if (entities == null)
+        //    {
+        //        return null;
+        //    }
+        //    var len = entities.Count;
+        //    if (len <= 0)
+        //    {
+        //        return new List<TreeConfigDto>();
+        //    }
+        //    var list = new List<TreeConfigDto>();
+        //    foreach (var e in entities)
+        //    {
+        //        list.Add(MapWithoutParent(e));
+        //    }
+        //    return list;
+        //}
+
+        //private TreeConfigDto MapWithoutParent(TreeConfigEntity entity)
+        //{
+        //    if (entity == null)
+        //    {
+        //        return null;
+        //    }
+        //    return new TreeConfigDto
+        //    {
+        //        Id = entity.Id,
+        //        CreationTime = entity.CreationTime,
+        //        Data = entity.Data,
+        //        Description = entity.Description,
+        //        Name = entity.Name,
+        //        //Parent = MappingTop(entity.Parent),
+        //        Subs = MapWithoutParent(entity.Subs)
+        //    };
+        //}
 
     }
 }

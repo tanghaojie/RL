@@ -18,4 +18,4 @@ namespace RLCore.RLAppService.RiverPatrolEvent
             _IJTConfigurationManager = IJTConfigurationManager;
         }
     }
-}
+} 

@@ -12,7 +12,7 @@ namespace RLCore.EntityFrameworkCore
 {
     public class RLCoreDbContext : AbpDbContext
     {
-        public DbSet<TreeConfigEntity> TreeConfigs { get; set; }
+        public DbSet<TreeConfiguration> TreeConfigs { get; set; }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Region> Regions { get; set; }
@@ -51,7 +51,7 @@ namespace RLCore.EntityFrameworkCore
 
             Index(builder);
 
-            builder.Entity<TreeConfigEntity>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);  
+            builder.Entity<TreeConfiguration>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);  
         }
 
         private void Index(ModelBuilder builder)
@@ -84,10 +84,10 @@ namespace RLCore.EntityFrameworkCore
             builder.Entity<ManagerWetlandSidRelation>().HasIndex(u => u.ManagerId);
             builder.Entity<ManagerWetlandSidRelation>().HasIndex(u => u.WetlandSid);
 
-            builder.Entity<TreeConfigEntity>().HasIndex(u => u.ConfigName);
-            builder.Entity<TreeConfigEntity>().HasIndex(u => u.Name);
-            builder.Entity<TreeConfigEntity>().HasIndex(u => u.ParentId);
-            builder.Entity<TreeConfigEntity>().HasIndex(u => u.CreationTime);
+            builder.Entity<TreeConfiguration>().HasIndex(u => u.ConfigName);
+            builder.Entity<TreeConfiguration>().HasIndex(u => u.Name);
+            builder.Entity<TreeConfiguration>().HasIndex(u => u.ParentId);
+            builder.Entity<TreeConfiguration>().HasIndex(u => u.CreationTime);
         }
     }
 }

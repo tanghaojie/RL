@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RLCore.Configuration
+namespace RLCore.RLAppService.Configuration.RiverPatrolEventType.Dtos
 {
-    public class TreeConfigDto
+    public class CreateInput
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 
@@ -17,9 +14,6 @@ namespace RLCore.Configuration
 
         public string Data { get; set; }
 
-        public IList<TreeConfigDto> Subs { get; set; }
-
-        [Required]
-        public DateTime CreationTime { get; set; }
+        public int? ParentId { get; set; }
     }
 }

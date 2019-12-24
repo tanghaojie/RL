@@ -11,5 +11,8 @@
 
         public const string RiverPatrolBaseFolderName = "RiverPatrol";
 
+        public const string Configuraton_River_Patrol_Event_Type = "RiverPatrolEventType";
+        public const string Configuraton_River_Patrol_Event_Source_Type = "RiverPatrolEventSourceType";
+
     }
 }

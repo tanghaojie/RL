@@ -40,5 +40,6 @@ namespace RLCore.Services
         Task<TEntityDto> UpdateById(TUpdateByIdInput input);
         Task DeleteById(TPrimaryKey id);
         Task<PagedResultDto<TEntityDto>> GetPaged(TGetPagedInput input);
+        Task<IListResult<TEntityDto>> GetAll();
     }
 }

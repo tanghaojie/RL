@@ -66,6 +66,7 @@ namespace RLCore.Services
         protected virtual bool UpdateByIdEnabled { get; set; } = true;
         protected virtual bool DeleteByIdEnabled { get; set; } = true;
         protected virtual bool GetPagedEnabled { get; set; } = true;
+        protected virtual bool GetAllEnabled { get; set; } = true;
 
         public virtual async Task<TEntityDto> GetSingleById(TPrimaryKey id)
         {
@@ -114,9 +115,20 @@ namespace RLCore.Services
             return new PagedResultDto<TEntityDto>(total, entities.Select(MapToEntityDto).ToList());
         }
 
+        public virtual async Task<IListResult<TEntityDto>> GetAll()
+        {
+            if (!GetAllEnabled) { Forbidden(); }
+
+            var list = await Repository.GetAllListAsync();
+            return new ListResultDto<TEntityDto>(list.Select(MapToEntityDto).ToList());
+        }
+
+
         protected virtual Task<TEntity> GetEntityByIdAsync(TPrimaryKey id)
         {
             return Repository.GetAsync(id);
         }
+
+
     }
 }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RLCore.EntityFrameworkCore.Repositories
 {
-    public class ConfigRepository : RLCoreRepositoryBase<TreeConfigEntity>, IConfigRepository
+    public class ConfigRepository : RLCoreRepositoryBase<TreeConfiguration>, IConfigRepository
     {
         public ConfigRepository(IDbContextProvider<RLCoreDbContext> dbContextProvider)
         : base(dbContextProvider)
@@ -20,37 +20,37 @@ namespace RLCore.EntityFrameworkCore.Repositories
 
         }
 
-        public override IQueryable<TreeConfigEntity> GetAll()
+        public override IQueryable<TreeConfiguration> GetAll()
         {
             return base.GetAll().Include(x => x.Subs).AsEnumerable().AsQueryable();
         }
 
-        public override List<TreeConfigEntity> GetAllList()
+        public override List<TreeConfiguration> GetAllList()
         {
             return base.GetAll().Include(x => x.Subs).AsEnumerable().ToList();
         }
 
-        public override List<TreeConfigEntity> GetAllList(Expression<Func<TreeConfigEntity, bool>> predicate)
+        public override List<TreeConfiguration> GetAllList(Expression<Func<TreeConfiguration, bool>> predicate)
         {
             return base.GetAll().Include(x => x.Subs).AsEnumerable().Where(predicate.Compile()).ToList();
         }
 
-        public override Task<List<TreeConfigEntity>> GetAllListAsync()
+        public override Task<List<TreeConfiguration>> GetAllListAsync()
         {
             return base.GetAll().Include(x => x.Subs).ToAsyncEnumerable().ToList();
         }
 
-        public override Task<List<TreeConfigEntity>> GetAllListAsync(Expression<Func<TreeConfigEntity, bool>> predicate)
+        public override Task<List<TreeConfiguration>> GetAllListAsync(Expression<Func<TreeConfiguration, bool>> predicate)
         {
             return base.GetAll().Include(x => x.Subs).ToAsyncEnumerable().Where(predicate.Compile()).ToList();
         }
 
-        public override TreeConfigEntity Get(int id)
+        public override TreeConfiguration Get(int id)
         {
             return base.GetAll().Include(x => x.Subs).AsEnumerable().Where(x => x.Id == id).FirstOrDefault();
         }
 
-        public override Task<TreeConfigEntity> GetAsync(int id)
+        public override Task<TreeConfiguration> GetAsync(int id)
         {
             return base.GetAll().Include(x => x.Subs).ToAsyncEnumerable().Where(x => x.Id == id).FirstOrDefault();
         }
