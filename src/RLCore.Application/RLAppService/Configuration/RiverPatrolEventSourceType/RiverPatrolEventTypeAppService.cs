@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace RLCore.RLAppService.Configuration.RiverPatrolEventSourceType
 {
-    public class RiverPatrolEventSourceTypeAppService :
+    public class RiverPatrolEventSourceTypeConfigAppService :
         AsyncTreeConfigurationAppService<RiverPatrolEventSourceTypeOutput, GetPagedInput, CreateInput, UpdateByIdInput>,
-        IRiverPatrolEventSourceTypeAppService
+        IRiverPatrolEventSourceTypeConfigAppService
     {
         public override string ConfigurationName { get; set; } = RLCoreConsts.Configuraton_River_Patrol_Event_Source_Type;
 
-        public RiverPatrolEventSourceTypeAppService(ITreeConfigurationManager treeConfigurationManager) : base(treeConfigurationManager)
+        public RiverPatrolEventSourceTypeConfigAppService(ITreeConfigurationManager treeConfigurationManager) : base(treeConfigurationManager)
         {
             UpdateByIdEnabled = false;
         }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RLCore.RLAppService.Configuration.RiverPatrolEventSourceType
 {
-    public interface IRiverPatrolEventSourceTypeAppService
+    public interface IRiverPatrolEventSourceTypeConfigAppService
          : IAsyncTreeConfigurationAppService<RiverPatrolEventSourceTypeOutput, GetPagedInput, CreateInput, UpdateByIdInput>
     {
     }
