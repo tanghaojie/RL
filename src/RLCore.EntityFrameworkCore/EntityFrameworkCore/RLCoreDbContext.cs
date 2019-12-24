@@ -5,11 +5,15 @@ using NetTopologySuite.Geometries;
 using RLCore.Users;
 using RLCore.RL;
 using System.Linq;
+using RLCore.Configuration;
+using System.Collections.Generic;
 
 namespace RLCore.EntityFrameworkCore
 {
     public class RLCoreDbContext : AbpDbContext
     {
+        public DbSet<TreeConfigEntity> TreeConfigs { get; set; }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<River> Rivers { get; set; }
@@ -18,6 +22,8 @@ namespace RLCore.EntityFrameworkCore
         public DbSet<Lake> Lakes { get; set; }
         public DbSet<Reservoir> Reservoirs { get; set; }
         public DbSet<Wetland> Wetlands { get; set; }
+
+
         public DbSet<ManagerRiverRelation> ManagerRiverRelations { get; set; }
         public DbSet<ManagerLakeRelation> ManagerLakeRelations { get; set; }
         public DbSet<ManagerReservoirRelation> ManagerReservoirRelations { get; set; }
@@ -27,17 +33,27 @@ namespace RLCore.EntityFrameworkCore
         public DbSet<ManagerReservoirSidRelation> ManagerReservoirSidRelations { get; set; }
         public DbSet<ManagerWetlandSidRelation> ManagerWetlandSidRelations { get; set; }
 
+
+
+        public DbSet<RiverPatrol> RiverPatrols { get; set; }
+
+
+
         public RLCoreDbContext(DbContextOptions<RLCoreDbContext> options)
             : base(options)
         {
-         
+
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("rl");
             builder.HasPostgresExtension("postgis");
+
             Index(builder);
+
+            builder.Entity<TreeConfigEntity>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);  
         }
+
         private void Index(ModelBuilder builder)
         {
             builder.Entity<User>().HasIndex(u => u.Username);
@@ -67,6 +83,11 @@ namespace RLCore.EntityFrameworkCore
 
             builder.Entity<ManagerWetlandSidRelation>().HasIndex(u => u.ManagerId);
             builder.Entity<ManagerWetlandSidRelation>().HasIndex(u => u.WetlandSid);
+
+            builder.Entity<TreeConfigEntity>().HasIndex(u => u.ConfigName);
+            builder.Entity<TreeConfigEntity>().HasIndex(u => u.Name);
+            builder.Entity<TreeConfigEntity>().HasIndex(u => u.ParentId);
+            builder.Entity<TreeConfigEntity>().HasIndex(u => u.CreationTime);
         }
     }
 }

@@ -23,20 +23,31 @@ namespace RLCore.Web.Startup
     public class RLCoreWebModule : AbpModule
     {
         private readonly IConfigurationRoot _appConfiguration;
+        private readonly IHostingEnvironment _env;
 
         public RLCoreWebModule(IHostingEnvironment env)
         {
             _appConfiguration = AppConfigurations.Get(env.ContentRootPath, env.EnvironmentName);
+            _env = env;
         }
 
         public override void PreInitialize()
         {
             Configuration.Navigation.Providers.Add<RLCoreNavigationProvider>();
+            ConfigureFileSystem();
         }
 
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(typeof(RLCoreWebModule).GetAssembly());
+        }
+
+        private void ConfigureFileSystem()
+        {
+            IocManager.Register<FileSystem.FileSystem>();
+            var fileSystem = IocManager.Resolve<FileSystem.FileSystem>();
+            fileSystem.RootPath = _env.ContentRootPath;
+            fileSystem.WebRootPath = _env.WebRootPath;   
         }
     }
 }

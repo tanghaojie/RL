@@ -22,6 +22,40 @@ namespace RLCore.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("RLCore.Configuration.TreeConfigEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConfigName")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<string>("Data");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int?>("ParentId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfigName");
+
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("TreeConfigs");
+                });
+
             modelBuilder.Entity("RLCore.RL.Channel", b =>
                 {
                     b.Property<int>("Id")
@@ -633,6 +667,45 @@ namespace RLCore.Migrations
                     b.ToTable("Rivers");
                 });
 
+            modelBuilder.Entity("RLCore.RL.RiverPatrol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<Point>("EndPoint")
+                        .HasColumnType("geometry (point)");
+
+                    b.Property<int?>("ManagerId");
+
+                    b.Property<int>("RiverId");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<Point>("StartPoint")
+                        .HasColumnType("geometry (point)");
+
+                    b.Property<int>("State");
+
+                    b.Property<LineString>("Track")
+                        .HasColumnType("geometry (LineString)");
+
+                    b.Property<int[]>("TrackPointIndexAndSecondWithoutASecond");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("RiverId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RiverPatrols");
+                });
+
             modelBuilder.Entity("RLCore.RL.Wetland", b =>
                 {
                     b.Property<int>("Id")
@@ -761,6 +834,14 @@ namespace RLCore.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("RLCore.Configuration.TreeConfigEntity", b =>
+                {
+                    b.HasOne("RLCore.Configuration.TreeConfigEntity", "Parent")
+                        .WithMany("Subs")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("RLCore.RL.ManagerLakeRelation", b =>
                 {
                     b.HasOne("RLCore.RL.Lake", "Lake")
@@ -834,6 +915,23 @@ namespace RLCore.Migrations
                     b.HasOne("RLCore.RL.Manager", "Manager")
                         .WithMany()
                         .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RLCore.RL.RiverPatrol", b =>
+                {
+                    b.HasOne("RLCore.RL.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId");
+
+                    b.HasOne("RLCore.RL.River", "River")
+                        .WithMany()
+                        .HasForeignKey("RiverId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RLCore.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

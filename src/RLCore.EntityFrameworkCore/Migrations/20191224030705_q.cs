@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace RLCore.Migrations
 {
-    public partial class init : Migration
+    public partial class q : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -293,6 +293,33 @@ namespace RLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TreeConfigs",
+                schema: "rl",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    ConfigName = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Data = table.Column<string>(nullable: true),
+                    ParentId = table.Column<int>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TreeConfigs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TreeConfigs_TreeConfigs_ParentId",
+                        column: x => x.ParentId,
+                        principalSchema: "rl",
+                        principalTable: "TreeConfigs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 schema: "rl",
                 columns: table => new
@@ -524,6 +551,50 @@ namespace RLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RiverPatrols",
+                schema: "rl",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    UserId = table.Column<int>(nullable: false),
+                    ManagerId = table.Column<int>(nullable: true),
+                    RiverId = table.Column<int>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: true),
+                    State = table.Column<int>(nullable: false),
+                    StartPoint = table.Column<Point>(type: "geometry (point)", nullable: true),
+                    EndPoint = table.Column<Point>(type: "geometry (point)", nullable: true),
+                    Track = table.Column<LineString>(type: "geometry (LineString)", nullable: true),
+                    TrackPointIndexAndSecondWithoutASecond = table.Column<int[]>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RiverPatrols", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RiverPatrols_Managers_ManagerId",
+                        column: x => x.ManagerId,
+                        principalSchema: "rl",
+                        principalTable: "Managers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RiverPatrols_Rivers_RiverId",
+                        column: x => x.RiverId,
+                        principalSchema: "rl",
+                        principalTable: "Rivers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RiverPatrols_Users_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "rl",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ManagerWetlandRelations",
                 schema: "rl",
                 columns: table => new
@@ -638,6 +709,48 @@ namespace RLCore.Migrations
                 column: "WetlandSid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RiverPatrols_ManagerId",
+                schema: "rl",
+                table: "RiverPatrols",
+                column: "ManagerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RiverPatrols_RiverId",
+                schema: "rl",
+                table: "RiverPatrols",
+                column: "RiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RiverPatrols_UserId",
+                schema: "rl",
+                table: "RiverPatrols",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TreeConfigs_ConfigName",
+                schema: "rl",
+                table: "TreeConfigs",
+                column: "ConfigName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TreeConfigs_CreationTime",
+                schema: "rl",
+                table: "TreeConfigs",
+                column: "CreationTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TreeConfigs_Name",
+                schema: "rl",
+                table: "TreeConfigs",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TreeConfigs_ParentId",
+                schema: "rl",
+                table: "TreeConfigs",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_CreationTime",
                 schema: "rl",
                 table: "Users",
@@ -713,7 +826,11 @@ namespace RLCore.Migrations
                 schema: "rl");
 
             migrationBuilder.DropTable(
-                name: "Users",
+                name: "RiverPatrols",
+                schema: "rl");
+
+            migrationBuilder.DropTable(
+                name: "TreeConfigs",
                 schema: "rl");
 
             migrationBuilder.DropTable(
@@ -725,15 +842,19 @@ namespace RLCore.Migrations
                 schema: "rl");
 
             migrationBuilder.DropTable(
-                name: "Rivers",
-                schema: "rl");
-
-            migrationBuilder.DropTable(
                 name: "Wetlands",
                 schema: "rl");
 
             migrationBuilder.DropTable(
                 name: "Managers",
+                schema: "rl");
+
+            migrationBuilder.DropTable(
+                name: "Rivers",
+                schema: "rl");
+
+            migrationBuilder.DropTable(
+                name: "Users",
                 schema: "rl");
         }
     }

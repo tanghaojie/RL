@@ -18,7 +18,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
-namespace RLCore.Web.Host.Controllers
+namespace RLCore.Web.Host.Controllers.Authenticate
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -70,12 +70,5 @@ namespace RLCore.Web.Host.Controllers
             }
             throw new UserFriendlyException(401, "", "");
         }
-
-        [HttpGet]
-        public string X()
-        {
-            return "123";
-        }
-
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RLCore.Web.Startup
 {
@@ -22,6 +23,13 @@ namespace RLCore.Web.Startup
                 })
                 .AddJwtBearer(options =>
                 {
+                    //options.Events = new JwtBearerEvents
+                    //{
+                    //      OnAuthenticationFailed = context => {
+
+                    //          return Task.CompletedTask;
+                    //      }
+                    //};
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
