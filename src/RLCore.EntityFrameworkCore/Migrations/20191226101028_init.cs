@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace RLCore.Migrations
 {
-    public partial class q : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -255,6 +255,31 @@ namespace RLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RiverPatrolEventSourceTypes",
+                schema: "rl",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    ParentId = table.Column<int>(nullable: true),
+                    Option = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Data = table.Column<string>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RiverPatrolEventSourceTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RiverPatrolEventSourceTypes_RiverPatrolEventSourceTypes_Par~",
+                        column: x => x.ParentId,
+                        principalSchema: "rl",
+                        principalTable: "RiverPatrolEventSourceTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rivers",
                 schema: "rl",
                 columns: table => new
@@ -293,28 +318,27 @@ namespace RLCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TreeConfigs",
+                name: "SingleTableOptionalTrees",
                 schema: "rl",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    ConfigName = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    ParentId = table.Column<int>(nullable: true),
+                    OptionType = table.Column<string>(nullable: false),
+                    Option = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Data = table.Column<string>(nullable: true),
-                    ParentId = table.Column<int>(nullable: true),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false)
+                    CreationTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TreeConfigs", x => x.Id);
+                    table.PrimaryKey("PK_SingleTableOptionalTrees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TreeConfigs_TreeConfigs_ParentId",
+                        name: "FK_SingleTableOptionalTrees_SingleTableOptionalTrees_ParentId",
                         column: x => x.ParentId,
                         principalSchema: "rl",
-                        principalTable: "TreeConfigs",
+                        principalTable: "SingleTableOptionalTrees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -709,6 +733,24 @@ namespace RLCore.Migrations
                 column: "WetlandSid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RiverPatrolEventSourceTypes_CreationTime",
+                schema: "rl",
+                table: "RiverPatrolEventSourceTypes",
+                column: "CreationTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RiverPatrolEventSourceTypes_Option",
+                schema: "rl",
+                table: "RiverPatrolEventSourceTypes",
+                column: "Option");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RiverPatrolEventSourceTypes_ParentId",
+                schema: "rl",
+                table: "RiverPatrolEventSourceTypes",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RiverPatrols_ManagerId",
                 schema: "rl",
                 table: "RiverPatrols",
@@ -727,27 +769,27 @@ namespace RLCore.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TreeConfigs_ConfigName",
+                name: "IX_SingleTableOptionalTrees_CreationTime",
                 schema: "rl",
-                table: "TreeConfigs",
-                column: "ConfigName");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TreeConfigs_CreationTime",
-                schema: "rl",
-                table: "TreeConfigs",
+                table: "SingleTableOptionalTrees",
                 column: "CreationTime");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TreeConfigs_Name",
+                name: "IX_SingleTableOptionalTrees_Option",
                 schema: "rl",
-                table: "TreeConfigs",
-                column: "Name");
+                table: "SingleTableOptionalTrees",
+                column: "Option");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TreeConfigs_ParentId",
+                name: "IX_SingleTableOptionalTrees_OptionType",
                 schema: "rl",
-                table: "TreeConfigs",
+                table: "SingleTableOptionalTrees",
+                column: "OptionType");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SingleTableOptionalTrees_ParentId",
+                schema: "rl",
+                table: "SingleTableOptionalTrees",
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
@@ -826,11 +868,15 @@ namespace RLCore.Migrations
                 schema: "rl");
 
             migrationBuilder.DropTable(
+                name: "RiverPatrolEventSourceTypes",
+                schema: "rl");
+
+            migrationBuilder.DropTable(
                 name: "RiverPatrols",
                 schema: "rl");
 
             migrationBuilder.DropTable(
-                name: "TreeConfigs",
+                name: "SingleTableOptionalTrees",
                 schema: "rl");
 
             migrationBuilder.DropTable(

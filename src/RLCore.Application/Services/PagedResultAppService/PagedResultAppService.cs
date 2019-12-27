@@ -21,6 +21,7 @@ namespace RLCore.Services
 
         public virtual PagedResultDto<TEntityDto> GetPaged(TGetInput input)
         {
+            //Logger
             var res = Repository.GetAll();
             var total = res.Count();
             res = res.Skip(input.SkipCount).Take(input.MaxResultCount).OrderByDescending(e => e.Id);

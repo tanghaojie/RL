@@ -5,9 +5,9 @@ using System.Text;
 
 namespace RLCore.Entities
 {
-    public class ConfigPagedResultRequest : PagedAndSortedResultRequestDto, IConfigPagedResultRequest
+    public class OptionalTreePagedResultRequest : PagedAndSortedResultRequestDto, IOptionalTreePagedResultRequest
     {
-        public ConfigPagedResultRequest()
+        public OptionalTreePagedResultRequest()
         {
             TopOnly = true;
         }

@@ -3,6 +3,8 @@ using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using RLCore.Configuration;
+using RLCore.Configuration.Optional.Entities;
+using RLCore.Configuration.Optional.Manager;
 using RLCore.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,18 +14,22 @@ using System.Threading.Tasks;
 
 namespace RLCore.Services
 {
-    public abstract class AsyncTreeConfigurationAppService
+    public abstract class AsyncSingleTableOptionalTreeConfigurationAppService
         <TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
-        : TreeConfigurationAppServiceBase<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>,
-        IAsyncTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
+        : OptionalTreeConfigurationAppServiceBase<SingleTableOptionalTree, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>,
+        IAsyncSingleTableOptionalTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
         where TEntityDto : IEntityDto<int>
-        where TGetConfigPagedInput : IConfigPagedResultRequest
+        where TGetConfigPagedInput : IOptionalTreePagedResultRequest
         where TUpdateByIdInput : IEntityDto<int>
     {
         public abstract string ConfigurationName { get; set; }
+        protected readonly ISingleTableOptionalTreeConfigurationManager _treeConfigurationManager;
 
-        public AsyncTreeConfigurationAppService(ITreeConfigurationManager treeConfigurationManager) : base(treeConfigurationManager)
-        { }
+
+        public AsyncSingleTableOptionalTreeConfigurationAppService(ISingleTableOptionalTreeConfigurationManager treeConfigurationManager)
+        {
+            _treeConfigurationManager = treeConfigurationManager;
+        }
 
         protected virtual bool GetSingleByIdEnabled { get; set; } = true;
         protected virtual bool CreateEnabled { get; set; } = true;
@@ -88,7 +94,7 @@ namespace RLCore.Services
         }
 
 
-        protected virtual Task<TreeConfiguration> GetEntityByIdAsync(int id)
+        protected virtual Task<SingleTableOptionalTree> GetEntityByIdAsync(int id)
         {
             return _treeConfigurationManager.GetAsync(id);
         }

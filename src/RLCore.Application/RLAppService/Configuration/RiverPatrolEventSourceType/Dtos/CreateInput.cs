@@ -8,7 +8,7 @@ namespace RLCore.RLAppService.Configuration.RiverPatrolEventSourceType.Dtos
     public class CreateInput
     {
         [Required]
-        public string Name { get; set; }
+        public string Option { get; set; }
 
         public string Description { get; set; }
 

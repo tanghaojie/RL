@@ -1,6 +1,9 @@
 ﻿using Abp.EntityFrameworkCore;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
+using Castle.MicroKernel.Registration;
+using RLCore.Configuration.Optional.Repository;
+using RLCore.EntityFrameworkCore.Repositories;
 
 namespace RLCore.EntityFrameworkCore
 {
@@ -12,6 +15,9 @@ namespace RLCore.EntityFrameworkCore
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(typeof(RLCoreEntityFrameworkCoreModule).GetAssembly());
+            
+
+            IocManager.IocContainer.Register(Component.For(typeof(IPerTableOptionalTreeRepository<>)).ImplementedBy(typeof(PerTableOptionalTreeRepository<>)).LifestyleTransient());
         }
     }
 }

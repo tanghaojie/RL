@@ -6,8 +6,10 @@ using Abp.Reflection.Extensions;
 using Abp.Runtime;
 using Abp.Runtime.Security;
 using Abp.Runtime.Session;
+using RLCore.Configuration.Optional.Repository;
 using RLCore.Localization;
 using System;
+using System.ComponentModel;
 using System.Linq;
 
 namespace RLCore
@@ -27,6 +29,7 @@ namespace RLCore
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(typeof(RLCoreCoreModule).GetAssembly());
+
         }
 
         public override void PostInitialize()

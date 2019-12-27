@@ -22,13 +22,10 @@ namespace RLCore.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("RLCore.Configuration.TreeConfiguration", b =>
+            modelBuilder.Entity("RLCore.Configuration.Optional.Entities.SingleTableOptionalTree", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ConfigName")
-                        .IsRequired();
 
                     b.Property<DateTime>("CreationTime");
 
@@ -36,22 +33,25 @@ namespace RLCore.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Option")
+                        .IsRequired();
+
+                    b.Property<string>("OptionType")
                         .IsRequired();
 
                     b.Property<int?>("ParentId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConfigName");
-
                     b.HasIndex("CreationTime");
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Option");
+
+                    b.HasIndex("OptionType");
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("TreeConfigs");
+                    b.ToTable("SingleTableOptionalTrees");
                 });
 
             modelBuilder.Entity("RLCore.RL.Channel", b =>
@@ -704,6 +704,33 @@ namespace RLCore.Migrations
                     b.ToTable("RiverPatrols");
                 });
 
+            modelBuilder.Entity("RLCore.RL.RiverPatrolEventSourceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<string>("Data");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Option")
+                        .IsRequired();
+
+                    b.Property<int?>("ParentId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("Option");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("RiverPatrolEventSourceTypes");
+                });
+
             modelBuilder.Entity("RLCore.RL.Wetland", b =>
                 {
                     b.Property<int>("Id")
@@ -832,9 +859,9 @@ namespace RLCore.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RLCore.Configuration.TreeConfiguration", b =>
+            modelBuilder.Entity("RLCore.Configuration.Optional.Entities.SingleTableOptionalTree", b =>
                 {
-                    b.HasOne("RLCore.Configuration.TreeConfiguration", "Parent")
+                    b.HasOne("RLCore.Configuration.Optional.Entities.SingleTableOptionalTree", "Parent")
                         .WithMany("Subs")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -930,6 +957,14 @@ namespace RLCore.Migrations
                     b.HasOne("RLCore.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RLCore.RL.RiverPatrolEventSourceType", b =>
+                {
+                    b.HasOne("RLCore.RL.RiverPatrolEventSourceType", "Parent")
+                        .WithMany("Subs")
+                        .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

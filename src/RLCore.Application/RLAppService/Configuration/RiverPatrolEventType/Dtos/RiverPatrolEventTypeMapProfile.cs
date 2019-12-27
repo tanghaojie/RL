@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using RLCore.Configuration;
-using RLCore.Services.TreeConfigurationAppService;
+using RLCore.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace RLCore.RLAppService.Configuration.RiverPatrolEventType.Dtos
 {
-    public class RiverPatrolEventTypeMapProfile : TreeConfigurationMapProfile<RiverPatrolEventTypeOutput, CreateInput, UpdateByIdInput>
+    public class RiverPatrolEventTypeMapProfile : SingleTableOptionalTreeConfigurationMapProfile<RiverPatrolEventTypeOutput, CreateInput, UpdateByIdInput>
     {
     }
 }

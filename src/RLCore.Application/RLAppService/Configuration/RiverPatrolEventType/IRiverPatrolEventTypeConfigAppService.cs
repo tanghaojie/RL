@@ -7,7 +7,7 @@ using System.Text;
 namespace RLCore.RLAppService.Configuration.RiverPatrolEventType
 {
     public interface IRiverPatrolEventTypeConfigAppService
-         : IAsyncTreeConfigurationAppService<RiverPatrolEventTypeOutput, GetPagedInput, CreateInput, UpdateByIdInput>
+         : IAsyncSingleTableOptionalTreeConfigurationAppService<RiverPatrolEventTypeOutput, GetPagedInput, CreateInput, UpdateByIdInput>
     {
     }
 }

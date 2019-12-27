@@ -1,13 +1,12 @@
 ﻿using Abp.Domain.Repositories;
-using RLCore.Configuration;
 using RLCore.Configuration.Optional.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RLCore.Repositories
+namespace RLCore.Configuration.Optional.Repository
 {
-    public interface IConfigRepository : IRepository<SingleTableOptionalTree>
+    public interface ISingleTableOptionalTreeRepository : IRepository<SingleTableOptionalTree>
     {
     }
 }

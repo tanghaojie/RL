@@ -7,12 +7,16 @@ using RLCore.RL;
 using System.Linq;
 using RLCore.Configuration;
 using System.Collections.Generic;
+using RLCore.Extensions.OptionalConfig;
+using RLCore.Configuration.Optional.Entities;
 
 namespace RLCore.EntityFrameworkCore
 {
     public class RLCoreDbContext : AbpDbContext
     {
-        public DbSet<TreeConfiguration> TreeConfigs { get; set; }
+        public DbSet<SingleTableOptionalTree> SingleTableOptionalTrees { get; set; }
+        public DbSet<RiverPatrolEventSourceType> RiverPatrolEventSourceTypes { get; set; }
+
 
         public DbSet<User> Users { get; set; }
         public DbSet<Region> Regions { get; set; }
@@ -42,16 +46,16 @@ namespace RLCore.EntityFrameworkCore
         public RLCoreDbContext(DbContextOptions<RLCoreDbContext> options)
             : base(options)
         {
-
+ 
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("rl");
             builder.HasPostgresExtension("postgis");
+            builder.HasSingleTableOptionalTree();
+            builder.HasPerTableOptionalTree<RiverPatrolEventSourceType>();
 
             Index(builder);
-
-            builder.Entity<TreeConfiguration>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);  
         }
 
         private void Index(ModelBuilder builder)
@@ -83,11 +87,6 @@ namespace RLCore.EntityFrameworkCore
 
             builder.Entity<ManagerWetlandSidRelation>().HasIndex(u => u.ManagerId);
             builder.Entity<ManagerWetlandSidRelation>().HasIndex(u => u.WetlandSid);
-
-            builder.Entity<TreeConfiguration>().HasIndex(u => u.ConfigName);
-            builder.Entity<TreeConfiguration>().HasIndex(u => u.Name);
-            builder.Entity<TreeConfiguration>().HasIndex(u => u.ParentId);
-            builder.Entity<TreeConfiguration>().HasIndex(u => u.CreationTime);
         }
     }
 }
