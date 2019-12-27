@@ -1,4 +1,4 @@
-﻿namespace RLCore.Dtos
+﻿namespace RLCore.Services
 {
     public class XYCoordinate
     {

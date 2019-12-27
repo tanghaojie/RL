@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using NetTopologySuite.Geometries;
-using RLCore.Dtos;
+using RLCore.Services.Extension;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,14 +11,10 @@ namespace RLCore.RLAppService.RiverPatrol.Dtos
     {
         public RiverPatrolMapProfile()
         {
-            CreateMap<StartInput, RL.RiverPatrol>().ForMember(u => u.StartPoint, options => options.MapFrom(src => Convert(src.Point))); ;
+            CreateMap<StartInput, RL.RiverPatrol>().ForMember(u => u.StartPoint, options => options.MapFrom(src => src.Point.ToPoint()));
             CreateMap<RL.RiverPatrol, RiverPatrolOutput>().ForMember(tar => tar.Track, opt => opt.MapFrom(src => Convert(src)));
         }
 
-        public Point Convert(XYCoordinate source)
-        {
-            return source == null ? null : new Point(source.X, source.Y);
-        }
         public TrackCls Convert(RL.RiverPatrol rp)
         {
             var x = rp.TrackPointIndexAndSecondWithoutASecond;
@@ -43,11 +39,11 @@ namespace RLCore.RLAppService.RiverPatrol.Dtos
         }
     }
 
-    public class TypeConvertert1 : ITypeConverter<XYCoordinate, Point>
-    {
-        public Point Convert(XYCoordinate source, Point destination, ResolutionContext context)
-        {
-            return source == null ? null : new Point(source.X, source.Y);
-        }
-    }
+    //public class TypeConvertert1 : ITypeConverter<XYCoordinate, Point>
+    //{
+    //    public Point Convert(XYCoordinate source, Point destination, ResolutionContext context)
+    //    {
+    //        return source == null ? null : new Point(source.X, source.Y);
+    //    }
+    //}
 }

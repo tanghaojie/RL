@@ -19,30 +19,42 @@ namespace RLCore.RL
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
 
-        [Required]
-        public int RiverPatrolEventSourceTypeId { get; set; }
-        [ForeignKey("RiverPatrolEventSourceTypeId")]
-        public virtual OptionTreeSharedTable RiverPatrolEventSourceType { get; set; }
 
         [Required]
         public int RiverPatrolId { get; set; }
         [ForeignKey("RiverPatrolId")]
         public virtual RiverPatrol RiverPatrol { get; set; }
 
+
         [Required]
         public int RiverPatrolEventTypeId { get; set; }
         [ForeignKey("RiverPatrolEventTypeId")]
-        public virtual OptionTreeSharedTable RiverPatrolEventType { get; set; }
+        public virtual RiverPatrolEventType RiverPatrolEventType { get; set; }
+
 
         public DateTime? EventDate { get; set; }
 
         [Required]
         public DateTime FindDate { get; set; }
 
+        public DateTime? PlanFinishDate { get; set; }
+
         [Required]
         public DateTime CreationTime { get; set; } = DateTime.Now;
 
         public string EventDescription { get; set; }
+
+
+        [Required]
+        public int RiverPatrolEventLevelId { get; set; }
+        [ForeignKey("RiverPatrolEventLevelId")]
+        public virtual RiverPatrolEventLevel RiverPatrolEventLevel { get; set; }
+
+
+        [Required]
+        public int RiverPatrolEventSourceTypeId { get; set; }
+        [ForeignKey("RiverPatrolEventSourceTypeId")]
+        public virtual RiverPatrolEventSourceType RiverPatrolEventSourceType { get; set; }
 
 
 

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RLCore.Services.Dtos
+namespace RLCore.Services
 {
     public interface IWktGeomDto
     {

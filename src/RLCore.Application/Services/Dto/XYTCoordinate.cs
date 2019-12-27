@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RLCore.Dtos
+namespace RLCore.Services
 {
     public class XYTCoordinate : XYCoordinate, IComparable<XYTCoordinate>
     {

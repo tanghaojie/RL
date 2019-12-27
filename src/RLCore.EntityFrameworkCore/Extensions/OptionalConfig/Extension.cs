@@ -6,7 +6,7 @@ namespace RLCore.Extensions.OptionalConfig
 {
     public static class Extension
     {
-        public static void HasSingleTableOptionalTree(this ModelBuilder builder)
+        public static void HasOptionTreeSharedTableEntity(this ModelBuilder builder)
         {
             builder.Entity<OptionTreeSharedTable>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<OptionTreeSharedTable>().HasIndex(u => u.OptionType);
@@ -15,7 +15,7 @@ namespace RLCore.Extensions.OptionalConfig
             builder.Entity<OptionTreeSharedTable>().HasIndex(u => u.CreationTime);
         }
 
-        public static void HasPerTableOptionalTree<TOption>(this ModelBuilder builder)
+        public static void HasOptionTreeEntity<TOption>(this ModelBuilder builder)
             where TOption : OptionTreeBase<TOption>
         {
             builder.Entity<TOption>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);
@@ -24,7 +24,7 @@ namespace RLCore.Extensions.OptionalConfig
             builder.Entity<TOption>().HasIndex(u => u.CreationTime);
         }
 
-        public static void HasPerTableOptionalTree<TOption, TPrimaryKey>(this ModelBuilder builder)
+        public static void HasOptionTreeEntity<TOption, TPrimaryKey>(this ModelBuilder builder)
             where TOption : OptionTreeBase<TOption, TPrimaryKey>
         {
             builder.Entity<TOption>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);

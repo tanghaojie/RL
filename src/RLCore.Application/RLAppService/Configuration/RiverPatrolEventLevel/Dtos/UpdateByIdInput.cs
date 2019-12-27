@@ -1,17 +1,14 @@
-﻿using RLCore;
-using RLCore.Services;
+﻿using Abp.Application.Services.Dto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RLCore.RLAppService.RiverPatrol.Dtos
+namespace RLCore.RLAppService.Configuration.RiverPatrolEventLevel.Dtos
 {
-    public class EndInput
+    public class UpdateByIdInput : IEntityDto
     {
         [Required]
         public int Id { get; set; }
-
-        public XYCoordinate Point { get; set; }
     }
 }

@@ -18,6 +18,9 @@ namespace RLCore.EntityFrameworkCore
         public DbSet<RiverPatrolEventType> RiverPatrolEventTypes { get; set; }
         public DbSet<RiverPatrolEventSourceType> RiverPatrolEventSourceTypes { get; set; }
 
+        public DbSet<RiverPatrolEventLevel> RiverPatrolEventLevels { get; set; }
+
+
 
         public DbSet<User> Users { get; set; }
         public DbSet<Region> Regions { get; set; }
@@ -42,20 +45,23 @@ namespace RLCore.EntityFrameworkCore
 
         public DbSet<RiverPatrol> RiverPatrols { get; set; }
 
+        public DbSet<RiverPatrolEvent> RiverPatrolEvents { get; set; }
+
 
 
         public RLCoreDbContext(DbContextOptions<RLCoreDbContext> options)
             : base(options)
         {
- 
+
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("rl");
             builder.HasPostgresExtension("postgis");
-            builder.HasSingleTableOptionalTree();
-            builder.HasPerTableOptionalTree<RiverPatrolEventType>();
-            builder.HasPerTableOptionalTree<RiverPatrolEventSourceType>();
+            builder.HasOptionTreeSharedTableEntity();
+            builder.HasOptionTreeEntity<RiverPatrolEventType>();
+            builder.HasOptionTreeEntity<RiverPatrolEventSourceType>();
+            builder.HasOptionTreeEntity<RiverPatrolEventLevel>();
 
             Index(builder);
         }
