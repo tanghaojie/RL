@@ -26,7 +26,7 @@ namespace RLCore.EntityFrameworkCore.Repositories
 
         public override IQueryable<TEntity> GetAll()
         {
-            return base.GetAll().Include(x => x.Subs).AsQueryable();
+            return base.GetAll().Include(x => x.Subs);
         }
 
         public override List<TEntity> GetAllList()
@@ -87,36 +87,6 @@ namespace RLCore.EntityFrameworkCore.Repositories
         public override Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return base.GetAll().Include(x => x.Subs).SingleAsync(predicate);
-        }
-
-        public IQueryable<TEntity> GetAll(bool topOnly)
-        {
-            var query = base.GetAll().Include(x => x.Subs);
-            if (topOnly)
-            {
-                return query.Where(u => u.Parent == null);
-            }
-            return query;
-        }
-
-        public int Count(bool topOnly)
-        {
-            var query = base.GetAll();
-            if (topOnly)
-            {
-                return query.Where(u => u.Parent == null).Count();
-            }
-            return query.Count();
-        }
-
-        public async Task<int> CountAsync(bool topOnly)
-        {
-            var query = base.GetAll();
-            if (topOnly)
-            {
-                return await query.Where(u => u.Parent == null).CountAsync();
-            }
-            return await query.CountAsync();
         }
 
     }

@@ -112,8 +112,13 @@ namespace RLCore.Services
         {
             if (!GetPagedEnabled) { Forbidden(); }
 
-            var query = _Repository.GetAll(input.TopOnly);
-            var total = await _Repository.CountAsync(input.TopOnly);
+            var query = _Repository.GetAll();
+            var total = await _Repository.CountAsync();
+            if (input.TopOnly)
+            {
+                query = query.Where(x => x.Parent == null);
+                total = await _Repository.CountAsync(x => x.Parent == null);
+            }
             query = ApplySorting(query, input);
             query = ApplyPaging(query, input);
             var entities = await query.ToListAsync();
@@ -124,7 +129,7 @@ namespace RLCore.Services
         {
             if (!GetAllEnabled) { Forbidden(); }
 
-            var list = await _Repository.GetAllListAsync();
+            var list = await _Repository.GetAllListAsync(x => x.Parent == null);
             return new ListResultDto<TEntityDto>(list.Select(MapToEntityDto).ToList());
         }
 

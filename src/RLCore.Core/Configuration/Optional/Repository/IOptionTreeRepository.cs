@@ -13,10 +13,5 @@ namespace RLCore.Configuration.Optional.Repository
     public interface IOptionTreeRepository<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
         where TEntity : OptionTreeBase<TEntity, TPrimaryKey>
     {
-        IQueryable<TEntity> GetAll(bool topOnly);
-
-        int Count(bool topOnly);
-
-        Task<int> CountAsync(bool topOnly);
     }
 }
