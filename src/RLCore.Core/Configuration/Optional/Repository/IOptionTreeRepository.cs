@@ -1,16 +1,17 @@
 ﻿using Abp.Domain.Repositories;
 using RLCore.Configuration.Optional.Entities;
+using RLCore.Entities;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace RLCore.Configuration.Optional.Repository
 {
-    public interface IPerTableOptionalTreeRepository<TEntity> : IPerTableOptionalTreeRepository<TEntity, int>
-       where TEntity : class, ITreeEntity<TEntity>
+    public interface IOptionTreeRepository<TEntity> : IOptionTreeRepository<TEntity, int>
+       where TEntity : OptionTreeBase<TEntity>
     {
     }
-    public interface IPerTableOptionalTreeRepository<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
-        where TEntity : class, ITreeEntity<TEntity, TPrimaryKey>
+    public interface IOptionTreeRepository<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
+        where TEntity : OptionTreeBase<TEntity, TPrimaryKey>
     {
         IQueryable<TEntity> GetAll(bool topOnly);
 

@@ -1,16 +1,17 @@
 ﻿using Abp.Domain.Entities.Auditing;
+using RLCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RLCore.Configuration.Optional.Entities
 {
-    public abstract class PerTableOptionalTree<TSelfEntity> : PerTableOptionalTree<TSelfEntity, int>
-        where TSelfEntity : PerTableOptionalTree<TSelfEntity>
+    public abstract class OptionTreeBase<TSelfEntity> : OptionTreeBase<TSelfEntity, int>
+        where TSelfEntity : OptionTreeBase<TSelfEntity>
     { }
 
-    public abstract class PerTableOptionalTree<TSelfEntity, TPrimaryKey> : TreeEntity<TSelfEntity, TPrimaryKey>, ITreeEntity<TSelfEntity, TPrimaryKey>, IHasCreationTime
-        where TSelfEntity : PerTableOptionalTree<TSelfEntity, TPrimaryKey>
+    public abstract class OptionTreeBase<TSelfEntity, TPrimaryKey> : TreeEntity<TSelfEntity, TPrimaryKey>, ITreeEntity<TSelfEntity, TPrimaryKey>, IHasCreationTime
+        where TSelfEntity : OptionTreeBase<TSelfEntity, TPrimaryKey>
     {
         [Required]
         public virtual string Option { get; set; }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RLCore.Configuration.Optional.Repository
 {
-    public interface ISingleTableOptionalTreeRepository : IRepository<SingleTableOptionalTree>
+    public interface IOptionTreeSharedTableRepository : IRepository<OptionTreeSharedTable>
     {
     }
 }

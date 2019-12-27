@@ -9,33 +9,33 @@ using System.Threading.Tasks;
 
 namespace RLCore.Configuration.Optional.Manager
 {
-    public class SingleTableOptionalTreeConfigurationManager : ISingleTableOptionalTreeConfigurationManager
+    public class OptionTreeSharedTableConfigurationManager : IOptionTreeSharedTableConfigurationManager
     {
-        private readonly ISingleTableOptionalTreeRepository _singleTableOptioanRepository;
+        private readonly IOptionTreeSharedTableRepository _singleTableOptioanRepository;
 
-        public SingleTableOptionalTreeConfigurationManager(ISingleTableOptionalTreeRepository singleTableOptioanRepository)
+        public OptionTreeSharedTableConfigurationManager(IOptionTreeSharedTableRepository singleTableOptioanRepository)
         {
             _singleTableOptioanRepository = singleTableOptioanRepository;
         }
 
-        public IQueryable<SingleTableOptionalTree> GetAll(string optionType, bool topOnly = true)
+        public IQueryable<OptionTreeSharedTable> GetAll(string optionType, bool topOnly = true)
         {
             return _singleTableOptioanRepository.GetAll().Where(u => u.OptionType == optionType && (topOnly ? u.Parent == null : true));
         }
 
-        public async Task<IList<SingleTableOptionalTree>> GetAllAsync(string optionType, bool topOnly = true)
+        public async Task<IList<OptionTreeSharedTable>> GetAllAsync(string optionType, bool topOnly = true)
         {
             return await _singleTableOptioanRepository.GetAllListAsync(u => u.OptionType == optionType && (topOnly ? u.Parent == null : true));
         }
 
 
-        public async Task<SingleTableOptionalTree> GetAsync(int id)
+        public async Task<OptionTreeSharedTable> GetAsync(int id)
         {
             return await _singleTableOptioanRepository.GetAsync(id);
         }
 
 
-        public async Task<SingleTableOptionalTree> AddAsync(string optionType, SingleTableOptionalTree entity)
+        public async Task<OptionTreeSharedTable> AddAsync(string optionType, OptionTreeSharedTable entity)
         {
             entity.OptionType = optionType;
             var id = await _singleTableOptioanRepository.InsertAndGetIdAsync(entity);
@@ -62,7 +62,7 @@ namespace RLCore.Configuration.Optional.Manager
 
 
 
-        public async Task<SingleTableOptionalTree> UpdateAsync(SingleTableOptionalTree entity)
+        public async Task<OptionTreeSharedTable> UpdateAsync(OptionTreeSharedTable entity)
         {
             var id = entity.Id;
             var inDb = await _singleTableOptioanRepository.GetAsync(id);

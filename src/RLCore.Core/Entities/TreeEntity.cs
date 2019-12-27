@@ -1,7 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using System.Collections.Generic;
 
-namespace RLCore.Configuration.Optional.Entities
+namespace RLCore.Entities
 {
     public class TreeEntity<TSelfEntity> : TreeEntity<TSelfEntity, int>
         where TSelfEntity : class, ITreeEntity<TSelfEntity>

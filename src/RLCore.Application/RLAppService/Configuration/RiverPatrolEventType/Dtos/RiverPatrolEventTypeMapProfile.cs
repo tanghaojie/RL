@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RLCore.RLAppService.Configuration.RiverPatrolEventType.Dtos
 {
-    public class RiverPatrolEventTypeMapProfile : SingleTableOptionalTreeConfigurationMapProfile<RiverPatrolEventTypeOutput, CreateInput, UpdateByIdInput>
+    public class RiverPatrolEventTypeMapProfile : OptionTreeConfigurationMapProfile<RL.RiverPatrolEventType, RiverPatrolEventTypeOutput, CreateInput, UpdateByIdInput>
     {
     }
 }

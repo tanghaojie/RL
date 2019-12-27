@@ -11,59 +11,58 @@ using System.Threading.Tasks;
 
 namespace RLCore.Services
 {
-    public abstract class AsyncPerTableOptionalTreeConfigurationAppService<TEntity, TEntityDto>
-        : AsyncPerTableOptionalTreeConfigurationAppService<TEntity, TEntityDto, OptionalTreePagedResultRequest>,
-        IAsyncPerTableOptionalTreeConfigurationAppService<TEntityDto, OptionalTreePagedResultRequest>
-        where TEntity : class, ITreeEntity<TEntity>
+    public abstract class AsyncOptionTreeConfigurationAppService<TEntity, TEntityDto>
+        : AsyncOptionTreeConfigurationAppService<TEntity, TEntityDto, OptionalTreePagedResultRequest>,
+        IAsyncOptionTreeConfigurationAppService<TEntityDto, OptionalTreePagedResultRequest>
+        where TEntity : OptionTreeBase<TEntity>
         where TEntityDto : IEntityDto
     {
-        public AsyncPerTableOptionalTreeConfigurationAppService(IPerTableOptionalTreeRepository<TEntity> Repository) : base(Repository) { }
+        public AsyncOptionTreeConfigurationAppService(IOptionTreeRepository<TEntity> Repository) : base(Repository) { }
     }
 
-    public abstract class AsyncPerTableOptionalTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput>
-        : AsyncPerTableOptionalTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TEntityDto>,
-        IAsyncPerTableOptionalTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TEntityDto>
-        where TEntity : class, ITreeEntity<TEntity>
-        where TEntityDto : IEntityDto
-        where TGetConfigPagedInput : IOptionalTreePagedResultRequest
-    {
-        public AsyncPerTableOptionalTreeConfigurationAppService(IPerTableOptionalTreeRepository<TEntity> Repository) : base(Repository) { }
-    }
-
-    public abstract class AsyncPerTableOptionalTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput>
-        : AsyncPerTableOptionalTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, EntityDto<int>>,
-        IAsyncPerTableOptionalTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, EntityDto<int>>
-        where TEntity : class, ITreeEntity<TEntity>
+    public abstract class AsyncOptionTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput>
+        : AsyncOptionTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TEntityDto>,
+        IAsyncOptionTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TEntityDto>
+        where TEntity : OptionTreeBase<TEntity>
         where TEntityDto : IEntityDto
         where TGetConfigPagedInput : IOptionalTreePagedResultRequest
     {
-        public AsyncPerTableOptionalTreeConfigurationAppService(IPerTableOptionalTreeRepository<TEntity> Repository) : base(Repository) { }
+        public AsyncOptionTreeConfigurationAppService(IOptionTreeRepository<TEntity> Repository) : base(Repository) { }
     }
 
+    public abstract class AsyncOptionTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput>
+        : AsyncOptionTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, EntityDto<int>>,
+        IAsyncOptionTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, EntityDto<int>>
+        where TEntity : OptionTreeBase<TEntity>
+        where TEntityDto : IEntityDto
+        where TGetConfigPagedInput : IOptionalTreePagedResultRequest
+    {
+        public AsyncOptionTreeConfigurationAppService(IOptionTreeRepository<TEntity> Repository) : base(Repository) { }
+    }
 
-    public abstract class AsyncPerTableOptionalTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
-        : AsyncPerTableOptionalTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput, int>,
-        IAsyncPerTableOptionalTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
-        where TEntity : class, ITreeEntity<TEntity>
+    public abstract class AsyncOptionTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
+        : AsyncOptionTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput, int>,
+        IAsyncOptionTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
+        where TEntity : OptionTreeBase<TEntity>
         where TEntityDto : IEntityDto<int>
         where TGetConfigPagedInput : IOptionalTreePagedResultRequest
         where TUpdateByIdInput : IEntityDto<int>
     {
-        public AsyncPerTableOptionalTreeConfigurationAppService(IPerTableOptionalTreeRepository<TEntity> Repository) : base(Repository) { }
+        public AsyncOptionTreeConfigurationAppService(IOptionTreeRepository<TEntity> Repository) : base(Repository) { }
     }
 
 
-    public abstract class AsyncPerTableOptionalTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput, TPrimaryKey>
-        : OptionalTreeConfigurationAppServiceBase<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput, TPrimaryKey>,
-        IAsyncPerTableOptionalTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput, TPrimaryKey>
-        where TEntity : class, ITreeEntity<TEntity, TPrimaryKey>
+    public abstract class AsyncOptionTreeConfigurationAppService<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput, TPrimaryKey>
+        : OptionTreeConfigurationAppServiceBase<TEntity, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput, TPrimaryKey>,
+        IAsyncOptionTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput, TPrimaryKey>
+        where TEntity : OptionTreeBase<TEntity, TPrimaryKey>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TGetConfigPagedInput : IOptionalTreePagedResultRequest
         where TUpdateByIdInput : IEntityDto<TPrimaryKey>
     {
-        protected readonly IPerTableOptionalTreeRepository<TEntity, TPrimaryKey> _Repository;
+        protected readonly IOptionTreeRepository<TEntity, TPrimaryKey> _Repository;
 
-        public AsyncPerTableOptionalTreeConfigurationAppService(IPerTableOptionalTreeRepository<TEntity, TPrimaryKey> Repository)
+        public AsyncOptionTreeConfigurationAppService(IOptionTreeRepository<TEntity, TPrimaryKey> Repository)
         {
             _Repository = Repository;
         }

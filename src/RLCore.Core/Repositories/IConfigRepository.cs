@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RLCore.Repositories
 {
-    public interface IConfigRepository : IRepository<SingleTableOptionalTree>
+    public interface IConfigRepository : IRepository<OptionTreeSharedTable>
     {
     }
 }

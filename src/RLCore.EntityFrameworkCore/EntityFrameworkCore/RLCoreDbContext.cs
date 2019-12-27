@@ -14,7 +14,8 @@ namespace RLCore.EntityFrameworkCore
 {
     public class RLCoreDbContext : AbpDbContext
     {
-        public DbSet<SingleTableOptionalTree> SingleTableOptionalTrees { get; set; }
+        public DbSet<OptionTreeSharedTable> OptionTreeSharedTable { get; set; }
+        public DbSet<RiverPatrolEventType> RiverPatrolEventTypes { get; set; }
         public DbSet<RiverPatrolEventSourceType> RiverPatrolEventSourceTypes { get; set; }
 
 
@@ -53,6 +54,7 @@ namespace RLCore.EntityFrameworkCore
             builder.HasDefaultSchema("rl");
             builder.HasPostgresExtension("postgis");
             builder.HasSingleTableOptionalTree();
+            builder.HasPerTableOptionalTree<RiverPatrolEventType>();
             builder.HasPerTableOptionalTree<RiverPatrolEventSourceType>();
 
             Index(builder);

@@ -8,28 +8,28 @@ using System.Threading.Tasks;
 
 namespace RLCore.Services
 {
-    public interface IAsyncSingleTableOptionalTreeConfigurationAppService
-     : IAsyncSingleTableOptionalTreeConfigurationAppService<EntityDto<int>>
+    public interface IAsyncOptionTreeSharedTableConfigurationAppService
+     : IAsyncOptionTreeSharedTableConfigurationAppService<EntityDto<int>>
     { }
 
-    public interface IAsyncSingleTableOptionalTreeConfigurationAppService<TEntityDto>
+    public interface IAsyncOptionTreeSharedTableConfigurationAppService<TEntityDto>
        : IAsyncSingleTableOptionalTreeConfigurationAppService<TEntityDto, OptionalTreePagedResultRequest>
        where TEntityDto : IEntityDto<int>
     { }
 
     public interface IAsyncSingleTableOptionalTreeConfigurationAppService<TEntityDto, in TGetPagedInput>
-       : IAsyncSingleTableOptionalTreeConfigurationAppService<TEntityDto, TGetPagedInput, TEntityDto>
+       : IAsyncOptionTreeSharedTableConfigurationAppService<TEntityDto, TGetPagedInput, TEntityDto>
        where TEntityDto : IEntityDto<int>
         where TGetPagedInput : IOptionalTreePagedResultRequest
     { }
 
-    public interface IAsyncSingleTableOptionalTreeConfigurationAppService<TEntityDto, in TGetPagedInput, in TCreateInput>
-        : IAsyncSingleTableOptionalTreeConfigurationAppService<TEntityDto, TGetPagedInput, TCreateInput, EntityDto<int>>
+    public interface IAsyncOptionTreeSharedTableConfigurationAppService<TEntityDto, in TGetPagedInput, in TCreateInput>
+        : IAsyncOptionTreeSharedTableConfigurationAppService<TEntityDto, TGetPagedInput, TCreateInput, EntityDto<int>>
         where TEntityDto : IEntityDto<int>
         where TGetPagedInput : IOptionalTreePagedResultRequest
     { }
 
-    public interface IAsyncSingleTableOptionalTreeConfigurationAppService<TEntityDto, in TGetPagedInput, in TCreateInput, in TUpdateByIdInput>
+    public interface IAsyncOptionTreeSharedTableConfigurationAppService<TEntityDto, in TGetPagedInput, in TCreateInput, in TUpdateByIdInput>
         : IApplicationService
         where TEntityDto : IEntityDto<int>
         where TGetPagedInput : IOptionalTreePagedResultRequest

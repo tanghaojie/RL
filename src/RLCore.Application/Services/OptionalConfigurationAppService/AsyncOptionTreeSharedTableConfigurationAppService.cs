@@ -14,22 +14,19 @@ using System.Threading.Tasks;
 
 namespace RLCore.Services
 {
-    public abstract class AsyncSingleTableOptionalTreeConfigurationAppService
+    public abstract class AsyncOptionTreeSharedTableConfigurationAppService
         <TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
-        : OptionalTreeConfigurationAppServiceBase<SingleTableOptionalTree, TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>,
-        IAsyncSingleTableOptionalTreeConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
-        where TEntityDto : IEntityDto<int>
+        : OptionTreeSharedTableConfigurationAppServiceBase<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>,
+        IAsyncOptionTreeSharedTableConfigurationAppService<TEntityDto, TGetConfigPagedInput, TCreateInput, TUpdateByIdInput>
+        where TEntityDto : IEntityDto
         where TGetConfigPagedInput : IOptionalTreePagedResultRequest
-        where TUpdateByIdInput : IEntityDto<int>
+        where TUpdateByIdInput : IEntityDto
     {
         public abstract string ConfigurationName { get; set; }
-        protected readonly ISingleTableOptionalTreeConfigurationManager _treeConfigurationManager;
 
-
-        public AsyncSingleTableOptionalTreeConfigurationAppService(ISingleTableOptionalTreeConfigurationManager treeConfigurationManager)
-        {
-            _treeConfigurationManager = treeConfigurationManager;
-        }
+        public AsyncOptionTreeSharedTableConfigurationAppService(IOptionTreeSharedTableConfigurationManager ConfigurationManager)
+            : base(ConfigurationManager)
+        { }
 
         protected virtual bool GetSingleByIdEnabled { get; set; } = true;
         protected virtual bool CreateEnabled { get; set; } = true;
@@ -51,7 +48,7 @@ namespace RLCore.Services
             if (!CreateEnabled) { Forbidden(); }
 
             var entity = MapToEntity(input);
-            await _treeConfigurationManager.AddAsync(ConfigurationName, entity);
+            await _ConfigurationManager.AddAsync(ConfigurationName, entity);
             await CurrentUnitOfWork.SaveChangesAsync();
             return MapToEntityDto(entity);
         }
@@ -61,7 +58,7 @@ namespace RLCore.Services
             if (!UpdateByIdEnabled) { Forbidden(); }
 
             var entity = await GetEntityByIdAsync(input.Id);
-            await _treeConfigurationManager.UpdateAsync(MapToEntity(input));
+            await _ConfigurationManager.UpdateAsync(MapToEntity(input));
             CurrentUnitOfWork.SaveChanges();
             return MapToEntityDto(entity);
         }
@@ -70,15 +67,15 @@ namespace RLCore.Services
         {
             if (!DeleteByIdEnabled) { Forbidden(); }
 
-            return _treeConfigurationManager.DeleteAsync(id);
+            return _ConfigurationManager.DeleteAsync(id);
         }
 
         public virtual async Task<PagedResultDto<TEntityDto>> GetPaged(TGetConfigPagedInput input)
         {
             if (!GetPagedEnabled) { Forbidden(); }
 
-            var query = _treeConfigurationManager.GetAll(ConfigurationName, input.TopOnly);
-            var total = await _treeConfigurationManager.CountAsync(ConfigurationName, input.TopOnly);
+            var query = _ConfigurationManager.GetAll(ConfigurationName, input.TopOnly);
+            var total = await _ConfigurationManager.CountAsync(ConfigurationName, input.TopOnly);
             query = ApplySorting(query, input);
             query = ApplyPaging(query, input);
             var entities = await query.ToListAsync();
@@ -89,14 +86,14 @@ namespace RLCore.Services
         {
             if (!GetAllEnabled) { Forbidden(); }
 
-            var list = await _treeConfigurationManager.GetAllAsync(ConfigurationName);
+            var list = await _ConfigurationManager.GetAllAsync(ConfigurationName);
             return new ListResultDto<TEntityDto>(list.Select(MapToEntityDto).ToList());
         }
 
 
-        protected virtual Task<SingleTableOptionalTree> GetEntityByIdAsync(int id)
+        protected virtual Task<OptionTreeSharedTable> GetEntityByIdAsync(int id)
         {
-            return _treeConfigurationManager.GetAsync(id);
+            return _ConfigurationManager.GetAsync(id);
         }
 
 

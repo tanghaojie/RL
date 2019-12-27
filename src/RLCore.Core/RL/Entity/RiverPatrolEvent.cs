@@ -22,7 +22,7 @@ namespace RLCore.RL
         [Required]
         public int RiverPatrolEventSourceTypeId { get; set; }
         [ForeignKey("RiverPatrolEventSourceTypeId")]
-        public virtual SingleTableOptionalTree RiverPatrolEventSourceType { get; set; }
+        public virtual OptionTreeSharedTable RiverPatrolEventSourceType { get; set; }
 
         [Required]
         public int RiverPatrolId { get; set; }
@@ -32,7 +32,7 @@ namespace RLCore.RL
         [Required]
         public int RiverPatrolEventTypeId { get; set; }
         [ForeignKey("RiverPatrolEventTypeId")]
-        public virtual SingleTableOptionalTree RiverPatrolEventType { get; set; }
+        public virtual OptionTreeSharedTable RiverPatrolEventType { get; set; }
 
         public DateTime? EventDate { get; set; }
 

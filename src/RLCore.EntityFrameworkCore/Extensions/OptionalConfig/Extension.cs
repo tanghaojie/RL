@@ -8,15 +8,15 @@ namespace RLCore.Extensions.OptionalConfig
     {
         public static void HasSingleTableOptionalTree(this ModelBuilder builder)
         {
-            builder.Entity<SingleTableOptionalTree>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<SingleTableOptionalTree>().HasIndex(u => u.OptionType);
-            builder.Entity<SingleTableOptionalTree>().HasIndex(u => u.Option);
-            builder.Entity<SingleTableOptionalTree>().HasIndex(u => u.ParentId);
-            builder.Entity<SingleTableOptionalTree>().HasIndex(u => u.CreationTime);
+            builder.Entity<OptionTreeSharedTable>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<OptionTreeSharedTable>().HasIndex(u => u.OptionType);
+            builder.Entity<OptionTreeSharedTable>().HasIndex(u => u.Option);
+            builder.Entity<OptionTreeSharedTable>().HasIndex(u => u.ParentId);
+            builder.Entity<OptionTreeSharedTable>().HasIndex(u => u.CreationTime);
         }
 
         public static void HasPerTableOptionalTree<TOption>(this ModelBuilder builder)
-            where TOption : PerTableOptionalTree<TOption>
+            where TOption : OptionTreeBase<TOption>
         {
             builder.Entity<TOption>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<TOption>().HasIndex(u => u.Option);
@@ -25,7 +25,7 @@ namespace RLCore.Extensions.OptionalConfig
         }
 
         public static void HasPerTableOptionalTree<TOption, TPrimaryKey>(this ModelBuilder builder)
-            where TOption : PerTableOptionalTree<TOption, TPrimaryKey>
+            where TOption : OptionTreeBase<TOption, TPrimaryKey>
         {
             builder.Entity<TOption>().HasMany(e => e.Subs).WithOne(o => o.Parent).HasForeignKey(j => j.ParentId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<TOption>().HasIndex(u => u.Option);

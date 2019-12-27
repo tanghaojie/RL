@@ -12,12 +12,12 @@ namespace RLCore.Configuration.Optional.Manager
     /// Single Table Optional Tree Configuration Manager Use For "Wrap" Different OptionType
     /// Per Table Option Tree Do not Need
     /// </summary>
-    public interface ISingleTableOptionalTreeConfigurationManager : ISingletonDependency
+    public interface IOptionTreeSharedTableConfigurationManager : ISingletonDependency
     {
-        IQueryable<SingleTableOptionalTree> GetAll(string optionType, bool topOnly = true);
-        Task<IList<SingleTableOptionalTree>> GetAllAsync(string optionType, bool topOnly = true);
+        IQueryable<OptionTreeSharedTable> GetAll(string optionType, bool topOnly = true);
+        Task<IList<OptionTreeSharedTable>> GetAllAsync(string optionType, bool topOnly = true);
 
-        Task<SingleTableOptionalTree> GetAsync(int id);
+        Task<OptionTreeSharedTable> GetAsync(int id);
 
         Task DeleteAsync(int id);
 
@@ -26,9 +26,9 @@ namespace RLCore.Configuration.Optional.Manager
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<SingleTableOptionalTree> UpdateAsync(SingleTableOptionalTree entity);
+        Task<OptionTreeSharedTable> UpdateAsync(OptionTreeSharedTable entity);
 
-        Task<SingleTableOptionalTree> AddAsync(string optionType, SingleTableOptionalTree entity);
+        Task<OptionTreeSharedTable> AddAsync(string optionType, OptionTreeSharedTable entity);
 
         Task<bool> NameExistAsync(string optionType, string name, int? parentId = null);
 

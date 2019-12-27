@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RLCore.RL
 {
-    public class RiverPatrolEventSourceType : OptionTreeBase<RiverPatrolEventSourceType>, ITreeEntity<RiverPatrolEventSourceType>
+    public class RiverPatrolEventType : OptionTreeBase<RiverPatrolEventType>, ITreeEntity<RiverPatrolEventType>
     {
 
     }

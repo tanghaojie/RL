@@ -3,6 +3,7 @@ using Abp.Application.Services.Dto;
 using Abp.Extensions;
 using Abp.UI;
 using RLCore.Configuration.Optional.Entities;
+using RLCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,17 @@ using System.Text;
 
 namespace RLCore.Services
 {
-    public class OptionalTreeConfigurationAppServiceBase<TEntity, TEntityDto, TGetPagedInput, TCreateInput, TUpdateByIdInput>
-       : OptionalTreeConfigurationAppServiceBase<TEntity, TEntityDto, TGetPagedInput, TCreateInput, TUpdateByIdInput, int>
-       where TEntity : class, ITreeEntity<TEntity, int>
+    public class OptionTreeConfigurationAppServiceBase<TEntity, TEntityDto, TGetPagedInput, TCreateInput, TUpdateByIdInput>
+       : OptionTreeConfigurationAppServiceBase<TEntity, TEntityDto, TGetPagedInput, TCreateInput, TUpdateByIdInput, int>
+       where TEntity : OptionTreeBase<TEntity, int>
        where TEntityDto : IEntityDto<int>
        where TUpdateByIdInput : IEntityDto<int>
        where TGetPagedInput : IPagedResultRequest
     { }
 
-    public class OptionalTreeConfigurationAppServiceBase<TEntity, TEntityDto, TGetPagedInput, TCreateInput, TUpdateByIdInput, TPrimaryKey>
+    public class OptionTreeConfigurationAppServiceBase<TEntity, TEntityDto, TGetPagedInput, TCreateInput, TUpdateByIdInput, TPrimaryKey>
         : ApplicationService
-        where TEntity : class, ITreeEntity<TEntity, TPrimaryKey>
+        where TEntity : OptionTreeBase<TEntity, TPrimaryKey>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateByIdInput : IEntityDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest

@@ -17,7 +17,7 @@ namespace RLCore.EntityFrameworkCore
             IocManager.RegisterAssemblyByConvention(typeof(RLCoreEntityFrameworkCoreModule).GetAssembly());
             
 
-            IocManager.IocContainer.Register(Component.For(typeof(IPerTableOptionalTreeRepository<>)).ImplementedBy(typeof(PerTableOptionalTreeRepository<>)).LifestyleTransient());
+            IocManager.IocContainer.Register(Component.For(typeof(IOptionTreeRepository<>)).ImplementedBy(typeof(OptionTreeRepository<>)).LifestyleTransient());
         }
     }
 }

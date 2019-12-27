@@ -1,7 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using System.Collections.Generic;
 
-namespace RLCore.Configuration.Optional.Entities
+namespace RLCore.Entities
 {
     public interface ITreeEntity<TSelfEntity> : ITreeEntity<TSelfEntity, int>, IEntity
         where TSelfEntity : class, ITreeEntity<TSelfEntity>

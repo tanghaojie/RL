@@ -8,12 +8,12 @@ namespace RLCore.RLAppService.RiverPatrolEvent
 {
     public class RiverPatrolEventAppService: IRiverPatrolEventAppService
     {
-        private readonly ISingleTableOptionalTreeConfigurationManager _IJTConfigurationManager;
+        private readonly IOptionTreeSharedTableConfigurationManager _IJTConfigurationManager;
 
         public const string TYPE = "QQ";
 
         public RiverPatrolEventAppService(
-            ISingleTableOptionalTreeConfigurationManager IJTConfigurationManager
+            IOptionTreeSharedTableConfigurationManager IJTConfigurationManager
             )
         {
             _IJTConfigurationManager = IJTConfigurationManager;

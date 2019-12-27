@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RLCore.Configuration.Optional.Entities;
 using RLCore.Configuration.Optional.Repository;
+using RLCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,18 @@ using System.Threading.Tasks;
 
 namespace RLCore.EntityFrameworkCore.Repositories
 {
-    public class PerTableOptionalTreeRepository<TSelfEntity> : PerTableOptionalTreeRepository<TSelfEntity, int>, IPerTableOptionalTreeRepository<TSelfEntity>
-        where TSelfEntity : class, ITreeEntity<TSelfEntity>
+    public class OptionTreeRepository<TSelfEntity> : OptionTreeRepository<TSelfEntity, int>, IOptionTreeRepository<TSelfEntity>
+        where TSelfEntity : OptionTreeBase<TSelfEntity>
     {
-        public PerTableOptionalTreeRepository(IDbContextProvider<RLCoreDbContext> dbContextProvider)
+        public OptionTreeRepository(IDbContextProvider<RLCoreDbContext> dbContextProvider)
            : base(dbContextProvider) { }
     }
-    public class PerTableOptionalTreeRepository<TEntity, TPrimaryKey> : RLCoreRepositoryBase<TEntity, TPrimaryKey>, IPerTableOptionalTreeRepository<TEntity, TPrimaryKey>
-        where TEntity : class, ITreeEntity<TEntity, TPrimaryKey>
+    public class OptionTreeRepository<TEntity, TPrimaryKey> : RLCoreRepositoryBase<TEntity, TPrimaryKey>, IOptionTreeRepository<TEntity, TPrimaryKey>
+        where TEntity : OptionTreeBase<TEntity, TPrimaryKey>
     {
-        public PerTableOptionalTreeRepository(IDbContextProvider<RLCoreDbContext> dbContextProvider)
-        : base(dbContextProvider)
-        {
-
-        }
+        public OptionTreeRepository(IDbContextProvider<RLCoreDbContext> dbContextProvider)
+            : base(dbContextProvider)
+        { }
 
         public override IQueryable<TEntity> GetAll()
         {
